@@ -5,9 +5,15 @@ from models.base_model import BaseModel
 
 class Tasks(BaseModel):
     """Representation of a tasks """
-    user_id = ""
-    description = ""
-    completed = ""
+    if models.storage_t == "db":
+        __tablename__ = 'tasks'
+        user_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+        description = Column(String(248), nullable=False)
+        completed = Column(Boolean(create_constraint=True), nullable=False)
+    else:
+        user_id = ""
+        description = ""
+        completed = ""
 
     def __init__(self, *args, **kwargs):
         """initializes tasks"""

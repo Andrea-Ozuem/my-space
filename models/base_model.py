@@ -4,8 +4,13 @@ Contains class BaseModel
 """
 
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
 import models
 import uuid
+import sqlAlchemy
+
+Base = declarative_base()
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
