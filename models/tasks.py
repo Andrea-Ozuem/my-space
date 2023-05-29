@@ -5,6 +5,7 @@ from models.base_model import BaseModel
 
 class Tasks(BaseModel):
     """Representation of a tasks """
+    user_id = ""
     description = ""
     completed = ""
 
