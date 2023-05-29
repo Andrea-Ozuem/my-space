@@ -4,11 +4,20 @@ Contains class BaseModel
 """
 
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
 import models
 import uuid
+import sqlAlchemy
+
+Base = declarative_base()
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
+    id = Column(String(60), primary_key=True)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now)
+
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
         if kwargs:
