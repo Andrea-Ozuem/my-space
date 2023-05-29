@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """ holds class Genres"""
 
-from models.base_model import BaseModel
-from sqlalchemy import Column, String, DateTime
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
-    
+
+
 class Genres(BaseModel, Base):
     """Representation of a genres """
     if models.storage_t == 'db':

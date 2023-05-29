@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """ holds class Tasks"""
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
-class Tasks(BaseModel):
+class Tasks(BaseModel, Base):
     """Representation of a tasks """
     if models.storage_t == "db":
         __tablename__ = 'tasks'

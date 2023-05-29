@@ -32,7 +32,6 @@ class User(BaseModel):
         
     def __init__(self, *args, **kwargs):
         """initializes user"""
-        super().__init__(*args, **kwargs)
     
     @property
     def tasks(self):
