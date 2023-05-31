@@ -2,14 +2,16 @@
 """ holds class Tasks"""
 
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
+import models
+
 
 class Tasks(BaseModel, Base):
     """Representation of a tasks """
     if models.storage_t == "db":
         __tablename__ = 'tasks'
-        user_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         description = Column(String(248), nullable=False)
         completed = Column(Boolean(create_constraint=True), nullable=False)
     else:

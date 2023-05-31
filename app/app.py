@@ -8,6 +8,7 @@ import os
 
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False)
 def main():
     user = storage.get(User, '00a11245-12fa-436e-9ccc-967417f8c30a')

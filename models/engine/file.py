@@ -9,15 +9,16 @@ from models.base_model import BaseModel
 from models.user import User
 from models.music import Genres
 from models.tasks import Tasks
-from models.music import Artists
+from models.music import Albums
 
 classes = {
         "BaseModel": BaseModel,
         "User": User,
         "Genres": Genres,
-        "Artists": Artists,
+        "Albums": Albums,
         "Tasks": Tasks
-} 
+}
+
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""
@@ -47,8 +48,8 @@ class FileStorage:
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
         for key in self.__objects:
-        #    if key == "password":
-         #       json_objects[key].decode()
+#           if key == "password":
+#               json_objects[key].decode()
             json_objects[key] = self.__objects[key].to_dict()
         with open(self.__file_path, 'w') as f:
             json.dump(json_objects, f)
