@@ -88,6 +88,7 @@ header {
 .weather-sum {
     text-align: center;
 }
+
 /* info section */
 .summary {
     background-color: #313131;
@@ -122,6 +123,7 @@ header {
 
 }
 
+/* Tp do section */
 .tasks h3 {
     font-weight: 700;
     margin: 0.5em;
@@ -169,5 +171,8 @@ label {
     transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
 }
 
+/* checked class add to the complete class */
+/* If checked, moves to the top of page */
+.complete {
 
-  
+}
