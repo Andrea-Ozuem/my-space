@@ -6,6 +6,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False)
 def main():
     user = storage.get(User, id)
@@ -14,6 +15,7 @@ def main():
                            name=name,
                            tasks=tasks)
 # Research o using external apis in  flask app
+
 
 if __name__ == "__main__":
     """ Main Function """
