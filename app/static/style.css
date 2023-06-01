@@ -63,10 +63,13 @@ header {
     padding: 0.5em;
 }
 
+.bold {
+    font-weight: 700;
+}
 /* Widget section */
 .widget h3{
     border: 3px solid white;
-    padding: 0.7em 0;
+    padding: 0.5em 0;
     margin-bottom: 1em;
     text-align: center;
     border-radius: 40px;
@@ -77,6 +80,11 @@ header {
     width: 300px;
 }
 
+.widget {
+    margin-bottom: 2em;
+}
+
+/* Calendar */
 .calendar {
     text-align: center;
     font-size: var(--ff-size);
@@ -87,12 +95,44 @@ header {
     justify-content: space-between;
 }
 
+/* Time */
 .time {
-    padding: 2em;
+    padding: 0 1em;
+    text-align: center;
 }
 
+.vl {
+    border-left: 2px solid white;
+    height: inherit;
+}
+
+
+/* Weather */
 .weather-sum {
     text-align: center;
+}
+
+.weather {
+    padding: 0 0.5em;
+}
+
+.stat {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    border-bottom: 2px solid white;
+}
+
+.stat p:first-child:before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f219";
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 0.5em;
+    font-size: 14px;
 }
 
 /* info section */

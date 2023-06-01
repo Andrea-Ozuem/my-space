@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
     <title>My Space</title>
 </head>
 <body>
@@ -22,10 +22,10 @@
 
     <div class="container flex">
         <div class="info">
-            <h2>Good morning, <br> <span class="accent">{{ name }}</span></h2>
+            <h2>Good morning, <br> <span class="accent bold">{{ name }}</span></h2>
             <!-- <h1>Yay! Almost Done</h1> -->
             <div class="summary">
-                <p>Daily Tasks</p>
+                <p class="bold">Daily Tasks</p>
                 <p>{{ done }} out of {{ total }} done</p>
             </div>
             <div class="tasks">
@@ -64,12 +64,13 @@
                 <h3>TIME</h3>
                 <div class="time">
                     <div class="home">
-                        HOME <br><br>
+                        <p class="bold">HOME</p>
                         12:13PM
                     </div>
+                    <div class="vl"></div>
                     <div class="away">
-                        AWAY <br><br>
-                        12:13PM
+                        <p class="bold">LAGOS</p>
+                        {{ time }}
                     </div>
                 </div>
             </div>
@@ -77,10 +78,25 @@
                 <h3>WEATHER</h3>
                 <div class="weather-sum">
                     <p>State</p>
-                    <p>overcast clouds</p>
+                    <p>{{ summ }}</p>
                 </div>
                 <div class="weather">
-
+                    <div class="stat flex">
+                        <p>Current Temperature</p>
+                        <p>{{ temp }}</p>
+                    </div>
+                    <div class="stat flex">
+                        <p>Wind Speed</p>
+                        <p>{{ speed }}</p>
+                    </div>
+                    <div class="stat flex">
+                        <p>Humidity</p>
+                        <p>{{ humid }}</p>
+                    </div>
+                    <div class="stat flex">
+                        <p>Pressure</p>
+                        <p>{{ press }}</p>
+                    </div>
                 </div>
             </div>
         </div>
