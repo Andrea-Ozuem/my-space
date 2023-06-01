@@ -2,6 +2,7 @@
     --fs-base: 18px;
     --fs-bold: 700;
     --clr-black: #202020;
+    --ff-size: 16px;
     --clr-accent: #C5ADED;
     --ff: 'Poppins', sans-serif;
 }
@@ -15,6 +16,10 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* general styles */
@@ -72,8 +77,9 @@ header {
     width: 300px;
 }
 
-.calendar p {
+.calendar {
     text-align: center;
+    font-size: var(--ff-size);
 }
 .weekdays, .time {
     display: flex;
