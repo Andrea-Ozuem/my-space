@@ -19,7 +19,7 @@ def main():
     else:
         tasks = user.tasks()
     done = [task for task in tasks if task.completed == 1]
-    description, temp, humidity, pressure, speed, away = get_weather(user)
+    description, temp, humidity, pressure, speed, away, city = get_weather(user)
 
     now = datetime.now()
     home = now.strftime("%H:%M")
@@ -27,7 +27,10 @@ def main():
     return render_template('index.html',
                            name=user.first_name,
                            tasks=tasks, total=len(tasks),
-                           done=len(done), t=temp, humid=humidity, press=pressure, speed=speed, summ=description, home=home, away=away)
+                           done=len(done), t=temp, humid=humidity,
+                           press=pressure, speed=speed, 
+                           summ=description, home=home,
+                           city=city, away=away)
 
 # Research o using external apis in  flask app
 
@@ -37,17 +40,20 @@ def get_weather(user):
     city = user.city
     api = 'e6073d242a72d509b55819a4e455fb5f'
     endpoint = 'https://api.openweathermap.org/data/2.5/weather?q={},{}&limit=1&appid={}'.format(city, country, api)
-    r = requests.get(endpoint).json()
+    try:
+        r = requests.get(endpoint).json()
+    except Exception:
+        return
+    name = r.get('name')
     description = r.get('weather')[0].get('description')
     temp = r.get('main').get('temp')
     humidity = r.get('main').get('humidity')
     pressure = r.get('main').get('pressure')
     speed = r.get('wind').get('speed')
 
-    time = requests.get('https://timeapi.io/api/Time/current/zone?timeZone=Africa/Lagos').json()
-    time = r.get('time')
+    time = requests.get('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Manila').json().get('time')
     # do also for home
-    return (description, temp, humidity, pressure, speed, time)
+    return (description, temp, humidity, pressure, speed, time, name)
 
 
 if __name__ == "__main__":

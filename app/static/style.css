@@ -1,8 +1,8 @@
 :root {
-    --fs-base: 18px;
+    --ff-base: 16px;
     --fs-bold: 700;
     --clr-black: #202020;
-    --ff-size: 16px;
+    --ff-size: 14px;
     --clr-accent: #C5ADED;
     --ff: 'Poppins', sans-serif;
 }
@@ -26,8 +26,10 @@
 body {
     background-color: var(--clr-black);
     color: #FFFFFF;
-    font-size: var(--fs-base);
+    font-size: var(--ff-base);
     font-family: var(--ff);
+    height: 100%;
+    overflow: hidden;
 }
 
 header p {
@@ -40,6 +42,7 @@ header p {
     /* padding-right: 4em; */
     right: 3em;
 }
+
 /* Layout */
 .container {
     /* max-width: 1000px; */
@@ -66,6 +69,7 @@ header {
 .bold {
     font-weight: 700;
 }
+
 /* Widget section */
 .widget h3{
     border: 3px solid white;
@@ -76,7 +80,9 @@ header {
 }
 
 .widgets{
+    font-size: var(--ff-size);
     max-width: 400px;
+    text-align: center;
     width: 300px;
 }
 
@@ -86,9 +92,10 @@ header {
 
 /* Calendar */
 .calendar {
-    text-align: center;
-    font-size: var(--ff-size);
+    padding-left: 2em;
+    padding-right: 2em;
 }
+
 .weekdays, .time {
     display: flex;
     width: 100%;
@@ -97,7 +104,8 @@ header {
 
 /* Time */
 .time {
-    padding: 0 1em;
+    padding: 0 3em;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -113,12 +121,12 @@ header {
 }
 
 .weather {
-    padding: 0 0.5em;
+    padding: 0 2em;
+    font-size: 0.9em
 }
 
 .stat {
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
+    padding: 0.8em 1em;
     border-bottom: 2px solid white;
 }
 
@@ -131,8 +139,8 @@ header {
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-    margin-right: 0.5em;
-    font-size: 14px;
+    margin-right: 1em;
+    font-size: 0.5em;
 }
 
 /* info section */

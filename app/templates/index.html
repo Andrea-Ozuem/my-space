@@ -32,11 +32,8 @@
                 <h3>My Tasks</h3>
                 <ul>
                     {% for task in tasks %}
-                    <li><input type="checkbox" id="task-1">
-                        <label for="task-1">
-                            <span class="custom-checkbox"></span>
+                    <li><input type="checkbox" id="task-1" style="margin-right: 10px;">
                             {{ task.description }}
-                        </label>
                     </li>
                     {% endfor %}
                 </ul>
@@ -65,37 +62,37 @@
                 <div class="time">
                     <div class="home">
                         <p class="bold">HOME</p>
-                        12:13PM
+                        {{ home }}
                     </div>
                     <div class="vl"></div>
                     <div class="away">
-                        <p class="bold">LAGOS</p>
-                        {{ time }}
+                        <p class="bold">MANILA</p>
+                        {{ away }}
                     </div>
                 </div>
             </div>
             <div class="widget">
                 <h3>WEATHER</h3>
                 <div class="weather-sum">
-                    <p>State</p>
+                    <p class="bold">{{ city }}</p>
                     <p>{{ summ }}</p>
                 </div>
                 <div class="weather">
                     <div class="stat flex">
                         <p>Current Temperature</p>
-                        <p>{{ temp }}</p>
+                        <p>{{ t }} &deg;C</p>
                     </div>
                     <div class="stat flex">
                         <p>Wind Speed</p>
-                        <p>{{ speed }}</p>
+                        <p>{{ speed }} km/h</p>
                     </div>
                     <div class="stat flex">
                         <p>Humidity</p>
-                        <p>{{ humid }}</p>
+                        <p>{{ humid }} %</p>
                     </div>
                     <div class="stat flex">
                         <p>Pressure</p>
-                        <p>{{ press }}</p>
+                        <p>{{ press }} hPa</p>
                     </div>
                 </div>
             </div>
