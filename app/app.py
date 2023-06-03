@@ -38,16 +38,19 @@ def get_weather(user):
     api = 'e6073d242a72d509b55819a4e455fb5f'
     endpoint = 'https://api.openweathermap.org/data/2.5/weather?q={},{}&limit=1&appid={}'.format(city, country, api)
     r = requests.get(endpoint).json()
+    
     description = r.get('weather')[0].get('description')
     temp = r.get('main').get('temp')
     humidity = r.get('main').get('humidity')
     pressure = r.get('main').get('pressure')
     speed = r.get('wind').get('speed')
-
+    return (description, temp, humidity, pressure, speed)
+            
+def get_time(user):
     time = requests.get('https://timeapi.io/api/Time/current/zone?timeZone=Africa/Lagos').json()
     time = r.get('time')
     # do also for home
-    return (description, temp, humidity, pressure, speed, time)
+    return (away, home)
 
 
 if __name__ == "__main__":
