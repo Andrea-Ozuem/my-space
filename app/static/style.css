@@ -245,12 +245,12 @@ li label {
 .custom-check {
     width: var(--ff-size);
     height: var(--ff-size);
-    font-size: var(--ff-size);
+    font-size: 10px;
     margin-right: var(--ff-size);
     border: 2px solid #554160;
     display: flex;
     align-items: center;
-    padding: 0.1rem;
+    justify-content: center;
     border-radius: 30%;
     cursor: pointer;
     transform: scale(1);
