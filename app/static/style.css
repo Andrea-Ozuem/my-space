@@ -272,8 +272,19 @@ li:hover .custom-check,
     opacity: 0.5;
 }
 
-/* checked class add to the complete class */
-/* If checked, moves to the top of page */
-.complete {
-    opacity: 0.5;
+.music div{
+    border-radius: 20px;
+    padding: 1em;
+    margin: 2em 0;
+    width: 10em;
+    text-align: center;
+}
+.flow {
+    background-color: rgb(225, 236, 236);
+    color: var(--clr-black);
+}
+
+.deadline {
+    background-color: rgb(255, 190, 255);
+    color: var(--clr-black);
 }
