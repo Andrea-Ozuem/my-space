@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/dycalendar.css">
     <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/progress.css">
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="../static/calendar.js" defer></script>    
+    <script src="../static/calendar.js" defer></script>
+    <script src="../static/time.js"></script>
     <title>My Space</title>
 </head>
 <body>
@@ -30,12 +31,34 @@
                 <p class="bold">Daily Tasks</p>
                 <p>{{ done }} out of {{ total }} done</p>
             </div>
+            <div class="progress-bar"></div>
             <div class="tasks">
                 <h3>My Tasks</h3>
                 <ul>
                     {% for task in tasks %}
-                    <li><input type="checkbox" id="task-1" style="margin-right: 10px;">
+                    <li>
+                        <input type="checkbox" id="check">
+                        <label for="check">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
                             {{ task.description }}
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="check2">
+                        <label for="check2">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
+                            Go running
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="check3">
+                        <label for="check3">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
+                            Prep for /sunday test
+                        </label>
                     </li>
                     {% endfor %}
                 </ul>

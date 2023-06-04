@@ -4,10 +4,11 @@
     --fw-light: 300;
     --fw-base:400;
     --clr-black: #202020;
-    /* --ff-size: 14px; */
+    --ff-size: 14px;
     --clr-accent: #C5ADED;
     --ff: 'Nunito', sans-serif;
     --clr-sec: rgb(255, 190, 210);
+    --clr-grey: #313131;
 }
 
 *,
@@ -179,7 +180,7 @@ header {
 
 /* info section */
 .summary {
-    background-color: #313131;
+    background-color: var(--clr-grey);
     border-radius: 30px;
     padding: 1.5em;
     margin: 2em 0 2em 0;
@@ -231,31 +232,44 @@ h4 {
     border-radius: 50%;
 }
 
-label {
-    display: flex;
-    align-items: center;
-    /* position: relative; */
-}
-
-[type="checkbox"] {
+[type="checkbox"]{
     opacity: 0;
     position: absolute;
 }
-  
-.custom-checkbox {
-    --size: 1em;
-    display: inline-block;
-    width: var(--size);
-    height: var(--size);
-    margin-right: var(--size);
+
+li label {
+    display: flex;
+    align-items: center;
+}
+
+.custom-check {
+    width: var(--ff-size);
+    height: var(--ff-size);
+    font-size: var(--ff-size);
+    margin-right: var(--ff-size);
+    border: 2px solid #554160;
+    display: flex;
+    align-items: center;
+    padding: 0.1rem;
+    border-radius: 30%;
     cursor: pointer;
-    border: 2px solid currentColor;
-    border-radius: 35%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    transition: -webkit-transform 300ms ease-in-out;
+    transform: scale(1);
     transition: transform 300ms ease-in-out;
-    transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
+    color: transparent;
+}
+
+li:hover .custom-check,
+[type="checkbox"]:focus + label .custom-check {
+    transform: scale(1.2);
+}
+
+[type="checkbox"]:checked + label .custom-check {
+    color: var(--clr-sec);
+    background: #554160;
+}
+
+[type="checkbox"]:checked + label{
+    opacity: 0.5;
 }
 
 /* checked class add to the complete class */
