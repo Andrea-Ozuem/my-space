@@ -26,7 +26,8 @@ def main():
 
     return render_template('index.html',
                            name=user.first_name,
-                           tasks=tasks, total=len(tasks),
+                           total=len(tasks),
+                           t_list=zip(tasks, range(len(tasks))),
                            done=len(done), t=temp, humid=humidity,
                            press=pressure, speed=speed,
                            summ=description, home=home,

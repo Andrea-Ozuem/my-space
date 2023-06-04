@@ -34,29 +34,13 @@
             <div class="tasks">
                 <h3>My Tasks</h3>
                 <ul>
-                    {% for task in tasks %}
+                    {% for task, i in t_list %}
                     <li>
-                        <input type="checkbox" id="check">
-                        <label for="check">
+                        <input type="checkbox" id="check{{ i }}">
+                        <label for="check{{ i }}">
                             <span class="custom-check"><i class="fa-solid fa-check"></i>
                             </span>
                             {{ task.description }}
-                        </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="check2">
-                        <label for="check2">
-                            <span class="custom-check"><i class="fa-solid fa-check"></i>
-                            </span>
-                            Go running
-                        </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="check3">
-                        <label for="check3">
-                            <span class="custom-check"><i class="fa-solid fa-check"></i>
-                            </span>
-                            Prep for /sunday test
                         </label>
                     </li>
                     {% endfor %}
@@ -125,15 +109,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="../static/dycalendar.js"></script> -->
-    <script>
-        dycalendar.draw({
-            target: "#calendar",
-            type: "month",
-            dayformat: "ddd",
-            highlighttoday: true
-        });
-    </script>
     <footer></footer>
 </body>
 </html>
