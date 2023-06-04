@@ -10,7 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="../static/calendar.js" defer></script>    
+    <script src="../static/calendar.js" defer></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="jQuery-plugin-progressbar.js"></script>
     <title>My Space</title>
 </head>
 <body>
@@ -27,8 +29,11 @@
             <h2>Good morning, <br> <span class="accent bold">{{ name }}</span></h2>
             <!-- <h1>Yay! Almost Done</h1> -->
             <div class="summary">
-                <p class="bold">Daily Tasks</p>
-                <p>{{ done }} out of {{ total }} done</p>
+                <div class="progress-bar">
+                    <p class="bold">Daily Tasks</p>
+                    <p>{{ done }} out of {{ total }} done</p>
+                </div>
+                <div class="progress-bar"></div>
             </div>
             <div class="tasks">
                 <h3>My Tasks</h3>
