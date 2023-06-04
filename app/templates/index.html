@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/dycalendar.css">
     <link rel="stylesheet" href="../static/style.css">
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="../static/calendar.js" defer></script>    
     <title>My Space</title>
 </head>
 <body>
     <header>
         <p>My Space</p>
         <div class="icons">
-            <i class="fa-solid fa-gear" style="color: #fff;"></i>
-            <i class="fa-regular fa-user"></i>
+            <a href="../templates/setting.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
+            <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
         </div>
     </header>
 
@@ -32,11 +34,8 @@
                 <h3>My Tasks</h3>
                 <ul>
                     {% for task in tasks %}
-                    <li><input type="checkbox" id="task-1">
-                        <label for="task-1">
-                            <span class="custom-checkbox"></span>
+                    <li><input type="checkbox" id="task-1" style="margin-right: 10px;">
                             {{ task.description }}
-                        </label>
                     </li>
                     {% endfor %}
                 </ul>
@@ -47,7 +46,7 @@
             <div class="widget">
                 <h3>CALENDAR</h3>
                 <div class="calendar">
-                    <p class="month">December</p>
+                    <p class="cal-head"> <span class="month">JUNE</span>  <span class="year">2023</span></p>
                     <div class="weekdays">
                         <div>Sun</div>
                         <div>Mon</div>
@@ -57,51 +56,62 @@
                         <div>Fri</div>
                         <div>Sat</div>
                     </div>
+                    <div class="days"></div>
                 </div>
                 <!-- Populating the calendar using js -->
             </div>
+
             <div class="widget">
                 <h3>TIME</h3>
-                <div class="time">
+                <div class="time flex">
                     <div class="home">
                         <p class="bold">HOME</p>
-                        12:13PM
+                        {{ home }}
                     </div>
+                    <!-- Use ptz library -->
                     <div class="vl"></div>
                     <div class="away">
-                        <p class="bold">LAGOS</p>
-                        {{ time }}
+                        <p class="bold">MANILA</p>
+                        {{ away }}
                     </div>
                 </div>
             </div>
             <div class="widget">
                 <h3>WEATHER</h3>
                 <div class="weather-sum">
-                    <p>State</p>
+                    <p class="bold">{{ city }}</p>
                     <p>{{ summ }}</p>
                 </div>
                 <div class="weather">
                     <div class="stat flex">
                         <p>Current Temperature</p>
-                        <p>{{ temp }}</p>
+                        <p>{{ t }} &deg;C</p>
                     </div>
                     <div class="stat flex">
                         <p>Wind Speed</p>
-                        <p>{{ speed }}</p>
+                        <p>{{ speed }} km/h</p>
                     </div>
                     <div class="stat flex">
                         <p>Humidity</p>
-                        <p>{{ humid }}</p>
+                        <p>{{ humid }} %</p>
                     </div>
                     <div class="stat flex">
                         <p>Pressure</p>
-                        <p>{{ press }}</p>
+                        <p>{{ press }} hPa</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- <script src="../static/dycalendar.js"></script> -->
+    <script>
+        dycalendar.draw({
+            target: "#calendar",
+            type: "month",
+            dayformat: "ddd",
+            highlighttoday: true
+        });
+    </script>
     <footer></footer>
 </body>
 </html>
