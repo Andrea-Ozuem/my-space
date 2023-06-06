@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="../static/calendar.js" defer></script>    
+    <script src="../static/scripts/calendar.js" defer></script>    
     <title>My Space</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
             <!-- <h1>Yay! Almost Done</h1> -->
             <div class="summary">
                 <p class="bold">Daily Tasks</p>
-                <p>{{ done }} out of {{ total }} done</p>
+                <p><span class="done"> {{ done }}</span> out of {{ total }} done</p>
             </div>
             <div class="progress-bar"></div>
             <div class="tasks">
@@ -36,7 +36,7 @@
                 <ul>
                     {% for task, i in t_list %}
                     <li>
-                        <input type="checkbox" id="check{{ i }}">
+                        <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
                         <label for="check{{ i }}">
                             <span class="custom-check"><i class="fa-solid fa-check"></i>
                             </span>

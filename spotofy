@@ -1,0 +1,8 @@
+
+curl -X POST "https://accounts.spotify.com/api/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "grant_type=client_credentials&client_id=ed8ee952e1c747a2a1179f407ceb81d3&client_secret=0dd66a1b71714d9ba9cfb05d3f0627d8"
+
+curl --request GET \
+  --url 'https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA' \
+  --header 'Authorization: Bearer BQAfgeKdrPCSOw_l3gcVyazQAv5l8XFN_1KDoDm0Qu6Mq3UQNh5aCIIm7OqzxTaeB1NurRK0xsQUKAmBq8PzAdpzPH7IySLB0HAJdwVpHhCwh9Emmzw'
