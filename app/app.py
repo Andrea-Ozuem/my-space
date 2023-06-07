@@ -25,8 +25,7 @@ def main():
     home = now.strftime("%H:%M")
 
     return render_template('index.html',
-                           name=user.first_name,
-                           total=len(tasks),
+                           user=user, total=len(tasks),
                            t_list=zip(tasks, range(len(tasks))),
                            done=len(done), t=temp, humid=humidity,
                            press=pressure, speed=speed,

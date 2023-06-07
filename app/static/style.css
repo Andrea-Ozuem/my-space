@@ -272,6 +272,50 @@ li:hover .custom-check,
     opacity: 0.5;
 }
 
+form {
+    display: flex;
+}
+
+.new {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    border-bottom: 1px solid var(--clr-grey);
+    font-size: inherit;
+    outline: none !important;
+    transition: border-bottom 150ms ease-in;
+    order: 2;
+    font-size: var(--ff-size);
+}
+.new:focus {
+    border-bottom-width: 2px;
+}
+.new:focus::placeholder {
+    opacity: 0.3;
+}
+
+button {
+    cursor: pointer;
+    background: 0;
+    border: 0;
+    color: var(--clr-sec);
+    font-weight: var(--fw-bold);
+    font-size: var(--ff-base);
+    margin-right: var(--ff-size);
+    width: var(--ff-base);
+    height: var(--ff-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms ease;
+    border-radius: 50%;
+}
+.new:hover + button, button:hover{
+    background-color: var(--clr-sec);
+    /* border-radius: 50%; */
+    color: var(--clr-grey);    
+}
+
 .music div{
     border-radius: 20px;
     padding: 1em;
