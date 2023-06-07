@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/progress.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="../static/scripts/calendar.js" defer></script>    
+    <script src="../static/scripts/main.js" defer></script>    
     <title>My Space</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
 
     <div class="container flex">
         <div class="info">
-            <h2>Good morning, <br> <span class="accent bold">{{ name }}</span></h2>
+            <h2>Good morning, <br> <span class="accent bold">{{ user.name }}</span></h2>
             <!-- <h1>Yay! Almost Done</h1> -->
             <div class="summary">
                 <p class="bold">Daily Tasks</p>
@@ -43,8 +44,29 @@
                             {{ task.description }}
                         </label>
                     </li>
+                    <li>
+                        <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
+                        <label for="check{{ i }}">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
+                            {{ task.description }}
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
+                        <label for="check{{ i }}">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
+                            {{ task.description }}
+                        </label>
+                    </li>
                     {% endfor %}
+                    <form action="http://0.0.0.0:5001/api/v1/users/{{ user.id }}/tasks" method="POST" >
+                        <input type="text" class="new" placeholder="Add task" aria-label="new task">
+                        <button aria-label="create new task">+</button>
+                    </form>
                 </ul>
+                
             </div>
             <div class="music flex">
                 <div class="flow"> <a href="#">Get flow</a></div>
