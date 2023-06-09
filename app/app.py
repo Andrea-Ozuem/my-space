@@ -3,7 +3,9 @@ from datetime import datetime
 from models import storage
 from models.user import User
 from models.tasks import Tasks
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
+from flask import request
+import json
 import requests
 import os
 
@@ -18,7 +20,11 @@ def main():
     else:
         tasks = user.tasks()
     done = [task for task in tasks if task.completed == 1]
-    description, temp, humidity, pressure, speed = get_weather(user)
+    try:
+        description, temp, humidity, pressure, speed = get_weather(user)
+    except TypeError:
+        description = None
+        temp = humidity = pressure = speed = 0
     away = get_time(user)
 
     now = datetime.now()
@@ -32,7 +38,18 @@ def main():
                            summ=description, home=home,
                            city=user.city, away=away)
 
-# Research o using external apis in  flask app
+@app.route('/add/<u_id>', strict_slashes=False, methods=['POST'])
+def post_task(u_id):
+    'Sends a post request to api and renders updated page'
+    url = 'http://0.0.0.0:5001/api/v1/users/{}/tasks'.format(u_id)
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = request.form.to_dict()
+    data.update({'completed': 0})
+    requests.post(url, json=data, headers=headers)
+    print(type(data))
+    return redirect('/')
 
 def get_weather(user):
     # api = getenv('WEATHER_KEY', None)

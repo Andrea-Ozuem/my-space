@@ -49,26 +49,10 @@
                             {{ task.description }}
                         </label>
                     </li>
-                    <li>
-                        <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
-                        <label for="check{{ i }}">
-                            <span class="custom-check"><i class="fa-solid fa-check"></i>
-                            </span>
-                            {{ task.description }}
-                        </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
-                        <label for="check{{ i }}">
-                            <span class="custom-check"><i class="fa-solid fa-check"></i>
-                            </span>
-                            {{ task.description }}
-                        </label>
-                    </li>
                     {% endfor %}
-                    <form action="http://0.0.0.0:5001/api/v1/users/{{ user.id }}/tasks" method="POST" >
-                        <input type="text" class="new" placeholder="Add task" aria-label="new task">
-                        <button aria-label="create new task">+</button>
+                    <form action="/add/{{ user.id}}" method="POST">
+                        <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
+                        <button class="btn" aria-label="create new task">+</button>
                     </form>
                 </ul>
                 

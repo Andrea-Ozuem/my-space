@@ -42,6 +42,7 @@ def post_task(user_id):
         abort(400, description="Missing completed")
 
     data = request.get_json()
+    print(type(data))
     instance = Tasks(**data)
     instance.user_id = user.id
     instance.save()

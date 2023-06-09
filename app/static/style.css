@@ -287,14 +287,15 @@ form {
     order: 2;
     font-size: var(--ff-size);
 }
-.new:focus {
+.new:focus, .new:active {
+    background: transparent;
     border-bottom-width: 2px;
 }
 .new:focus::placeholder {
     opacity: 0.3;
 }
 
-button {
+.btn {
     cursor: pointer;
     background: 0;
     border: 0;
@@ -310,7 +311,7 @@ button {
     transition: color 150ms ease;
     border-radius: 50%;
 }
-.new:hover + button, button:hover{
+.new:hover + .btn, .btn:hover{
     background-color: var(--clr-sec);
     /* border-radius: 50%; */
     color: var(--clr-grey);    
