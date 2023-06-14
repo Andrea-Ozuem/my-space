@@ -317,6 +317,10 @@ form {
     color: var(--clr-grey);    
 }
 
+.music {
+    gap: 1rem;
+}
+
 .music div{
     border-radius: 20px;
     padding: 1em;
