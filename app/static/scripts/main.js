@@ -17,5 +17,4 @@ $(document).ready(function () {
             $('span.done').text(done)
         })
     });
-    $(.music).on('click')
 });
