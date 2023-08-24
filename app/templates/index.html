@@ -12,57 +12,78 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="../static/scripts/calendar.js" defer></script>    
-    <script src="../static/scripts/main.js" defer></script>    
+    <script src="../static/scripts/main.js" defer></script>
     <title>My Space</title>
 </head>
 <body>
     <header>
-        <p>My Space</p>
-        <div class="icons">
-            <a href="../templates/setting.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
-            <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
-        </div>
+        <nav class="container">
+            <p>My Space</p>
+            <ul class="nav flex">
+                <li>
+                    <a href="../templates/setting.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
+                </li>
+                <li>
+                    <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
+                </li>
+                <li class="wid-icon">
+                    <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+                </li>
+            </ul>
+        </nav>
     </header>
+    {% extends "layout.html" %}
 
-    <div class="container flex">
-        <div class="info">
-            <h2>Good morning, <br> <span class="accent bold">{{ user.name }}</span></h2>
-            <!-- <h1>Yay! Almost Done</h1> -->
-            <div class="summary">
-                <p class="bold">Daily Tasks</p>
-                <p><span class="done"> {{ done }}</span> out of {{ total }} done</p>
+    <!-- {% block body %}
+        Later replace all her and delete above
+    {% endblock %} -->
+
+
+    <div class="container">
+        <main class="flex">
+            <div class="info">
+                <h2>Good morning, <br> <span class="accent bold">{{ user.name }}</span></h2>
+                <!-- <h1>Yay! Almost Done</h1> -->
+                <div class="summary flex">
+                    <div class="sum-text">
+                        <p class="bold">Daily Tasks</p>
+                        <p><span class="done"> {{ done }}</span> out of {{ total }} done</p>
+                    </div>
+                    <div class="progress">
+                        <span class="percent">20%</span>
+                    </div>
+                </div>
+
+                <div class="tasks">
+                    <h3>My Tasks</h3>
+                    <ul>
+                        {% for task, i in t_list %}
+                        <li>
+                            {% if task.completed %}
+                                <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}" checked>
+                            {% else %}
+                                <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
+                            {% endif %}
+                            <label for="check{{ i }}">
+                                <span class="custom-check"><i class="fa-solid fa-check"></i>
+                                </span>
+                                {{ task.description }}
+                            </label>
+                        </li>
+                        {% endfor %}
+                        <form action="/add/{{ user.id}}" method="POST">
+                            <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
+                            <button class="btn" aria-label="create new task">+</button>
+                        </form>
+                    </ul>
+                    
+                </div>
+                <div class="music flex">
+                    <div class="flow"> <a href="http://0.0.0.0:5000/callback/">Get flow<a></div>
+                    <div class="deadline"> <a href="http://0.0.0.0:5000/callback/" target="_blank">Get deadline</a></div>
+                </div>
             </div>
-            <div class="progress-bar"></div>
-            <div class="tasks">
-                <h3>My Tasks</h3>
-                <ul>
-                    {% for task, i in t_list %}
-                    <li>
-                        {% if task.completed %}
-                            <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}" checked>
-                        {% else %}
-                            <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
-                        {% endif %}
-                        <label for="check{{ i }}">
-                            <span class="custom-check"><i class="fa-solid fa-check"></i>
-                            </span>
-                            {{ task.description }}
-                        </label>
-                    </li>
-                    {% endfor %}
-                    <form action="/add/{{ user.id}}" method="POST">
-                        <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
-                        <button class="btn" aria-label="create new task">+</button>
-                    </form>
-                </ul>
-                
-            </div>
-            <div class="music flex">
-                <div class="flow"> <a href="http://0.0.0.0:5000/callback/">Get flow<a></div>
-                <div class="deadline"> <a href="http://0.0.0.0:5000/callback/" target="_blank">Get deadline</a></div>
-            </div>
-        </div>
-        <div></div>
+        <!-- <div class="mid"></div> -->
         <div class="widgets">
             <div class="widget">
                 <h3>CALENDAR</h3>
@@ -123,6 +144,7 @@
                 </div>
             </div>
         </div>
+        </main>
     </div>
     <footer></footer>
 </body>

@@ -20,13 +20,10 @@ class User(BaseModel, Base):
         last_name = Column(String(128), nullable=True)
         country = Column(String(128), nullable=True)
         city = Column(String(128), nullable=True)
-        fav_artist = Column(String(128), nullable=True)
         tasks = relationship("Tasks", backref="user",
                               cascade="all, delete, delete-orphan")
         genres = relationship("Genres", backref="user",
                                cascade="all, delete, delete-orphan")
-        albums = relationship("Albums", backref="user",
-                              cascade="all, delete, delete-orphan")
     else:
         email = ""
         password = ""

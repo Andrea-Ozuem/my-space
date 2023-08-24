@@ -5,7 +5,7 @@ Contains the class DBStorage
 
 import models
 from models.base_model import BaseModel, Base
-from models.music import Genres, Albums
+from models.genre import Genres, Albums
 from models.tasks import Tasks
 from models.user import User
 from os import getenv

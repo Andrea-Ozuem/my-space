@@ -5,7 +5,7 @@ import cmd
 from datetime import datetime
 import models
 from models.base_model import BaseModel, Base
-from models.music import Genres, Albums
+from models.genre import Genres, Albums
 from models.tasks import Tasks
 from models.user import User
 import shlex  # for splitting the line along spaces except in double quotes
