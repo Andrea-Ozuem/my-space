@@ -7,9 +7,9 @@ import json
 import models
 from models.base_model import BaseModel
 from models.user import User
-from models.music import Genres
+from models.genre import Genres
 from models.tasks import Tasks
-from models.music import Albums
+from models.genre import Albums
 
 classes = {
         "BaseModel": BaseModel,

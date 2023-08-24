@@ -17,4 +17,16 @@ $(document).ready(function () {
             $('span.done').text(done)
         })
     });
+
+    $('.wid-icon').click(function() {
+        console.log('here')
+        if($('.widgets').hasClass('pane')) {
+            $('.widgets').removeClass('pane');
+        } else {
+            // slide out
+            $('.widgets').addClass('pane');
+        }
+    })
+
+    
 });

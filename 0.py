@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.music import Genres, Artists
+from models.genre import Genres, Artists
 from models.tasks import Tasks
 from models.__init__ import storage
 from models.user import User

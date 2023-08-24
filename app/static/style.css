@@ -33,26 +33,38 @@ body {
     font-size: var(--ff-base);
     font-family: var(--ff);
 /*    height: 100%;*/
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
-header p {
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav {
+    gap: 1rem;
+    margin: 0.5rem 1rem;
+}
+.nav li {
     display: inline-block;
 }
 
-.icons {
-    display: inline-block;
-    position: absolute;
-    right: 3em;
-}
-.fa-gear {
-    padding-right: 1em;
+.nav li:last-child {
+    display: none;
 }
 
 /* Layout */
+main {
+    width: 100%;
+}
 .container {
     /* max-width: 1000px; */
+    /* position: relative; */
     width: 95%;
+    margin: 0 auto;
+}
+
+header + .container {
     margin: 2em auto;
 }
 
@@ -68,8 +80,8 @@ header p {
 
 header {
     background-color: #C5ADED;
+    height: 2.3rem;
     text-align: center;
-    padding: 0.5em;
 }
 
 .bold {
@@ -88,9 +100,11 @@ header {
 
 .widgets{
     font-size: var(--ff-size);
-    /* max-width: 400px; */
+    max-width: 40em;
     text-align: center;
     width: 20rem;
+    border-radius: 18px;
+    /* width: minmax(40%, 400px); */
 }
 
 .widget {
@@ -99,7 +113,7 @@ header {
 
 /* Calendar */
 .calendar {
-    width: 18rem;
+    width: 85%;
     margin: auto;
 }
 
@@ -181,18 +195,13 @@ header {
 /* info section */
 .summary {
     background-color: var(--clr-grey);
-    border-radius: 30px;
-    padding: 1.5em;
+    border-radius: 20px;
+    padding: 1em;
     margin: 2em 0 2em 0;
 }
 
-.summary:first {
+.sum-text:first {
     font-weight: var(--fw-bold);
-}
-
-.info {
-    max-width: 400px;
-    width: 25%;
 }
 
 .info h2 {
@@ -201,10 +210,44 @@ header {
     font-size: 2em;
 }
 
+.progress {
+    width: 2.5rem;
+    height: 2.5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    /* border: 1px solid white; */
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.progress::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: var(--clr-grey);
+
+}
+
+.progress span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    z-index: 100;
+    color: hsl(0, 0%, 85%);
+}
+
 .tasks {
     background-color: #C5ADED;
     padding: 1em;
-    border-radius: 30px;
+    border-radius: 22px;
     /* height: 350px; */
     overflow-y: auto;
     color: #202020;
@@ -222,7 +265,7 @@ header {
     margin-left: 1em;
 }
 
-li {
+.tasks li {
     list-style: none;
     margin-bottom: 1em;
 }
@@ -336,4 +379,58 @@ form {
 .deadline {
     background-color: rgb(255, 190, 255);
     color: var(--clr-black);
+}
+
+.wid-icon button {
+    background-color: transparent;
+    border: 0;
+    font-size: 14px;
+}
+
+@media (max-width: 760px) {
+    .nav li:last-child {
+        display: initial;
+    }
+
+    .info {
+        width: 100%;
+    }
+
+    .widgets {
+        display: none;
+    }
+
+    .wid-icon:active .widgets{
+        display: initial;
+        /* width: 30rem; */
+    }
+
+    .pane {
+        display: initial;
+        position: absolute;
+        top: 2.3rem;
+        right: 0;
+        background: hsl(0 0% 20% / 0.4);
+        backdrop-filter: blur(1rem);
+        padding: 2em 1rem 0 1rem;
+        z-index: 10000;
+        animation-name: paneTransition;
+        animation-duration: .28s;
+        animation-delay: .04s;
+        -webkit-animation-delay: .04s;
+        animation-fill-mode: backwards;
+        /* box-shadow: rgba(0, 0, 0, 0.133) 0px 1.6px 3.6px 0px, rgba(0, 0, 0, 0.11) 0px 0.3px 0.9px 0px; */
+    }
+
+    @keyframes paneTransition {
+        0% {
+            opacity: 0;
+            transform: translate(80px);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+    }
 }
