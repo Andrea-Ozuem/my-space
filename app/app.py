@@ -9,6 +9,7 @@ import urllib.parse as urlparse
 import json
 import requests
 import os
+import pytz
 import secrets
 import string
 
@@ -176,13 +177,13 @@ def main():
     done = [task for task in tasks if task.completed == 1]
     try:
         description, temp, humidity, pressure, speed = get_weather(user)
-        away = get_time(user)
     except TypeError:
         description = None
         temp = humidity = pressure = speed = 0
-        away = 0
-    now = datetime.now()
-    home = now.strftime("%H:%M")
+    home = datetime.now().strftime("%I:%M %p")
+    
+    away = pytz.timezone('Asia/Kuwait')
+    away = datetime.now(away).strftime('%I:%M %p')
     return render_template('index.html',
                            user=user, total=len(tasks),
                            t_list=zip(tasks, range(len(tasks))),
@@ -220,15 +221,6 @@ def get_weather(user):
     pressure = r.get('main').get('pressure')
     speed = r.get('wind').get('speed')
     return (description, temp, humidity, pressure, speed)
-
-def get_time(user):
-    try:
-        r = requests.get('https://timeapi.io/api/Time/current/zone?timeZone=Africa/Lagos').json()
-        away = r.get('time')
-        #do also for home
-        return (away)
-    except Exception:
-        pass
 
 
 if __name__ == "__main__":
