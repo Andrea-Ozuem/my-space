@@ -221,15 +221,6 @@ def get_weather(user):
     speed = r.get('wind').get('speed')
     return (description, temp, humidity, pressure, speed)
 
-def get_time(user):
-    try:
-        r = requests.get('https://timeapi.io/api/Time/current/zone?timeZone=Africa/Lagos').json()
-        away = r.get('time')
-        #do also for home
-        return (away)
-    except Exception:
-        pass
-
 
 if __name__ == "__main__":
     """ Main Function """
