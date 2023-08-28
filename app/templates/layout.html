@@ -12,16 +12,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="../static/scripts/calendar.js" defer></script>    
-    <script src="../static/scripts/main.js" defer></script>    
+    <script src="../static/scripts/main.js" defer></script>
     <title>My Space</title>
 </head>
 <body>
     <header>
-        <p>My Space</p>
-        <div class="icons">
-            <a href="../templates/setting.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
-            <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
-        </div>
+        <nav class="container">
+            <p>My Space</p>
+            <ul class="nav flex">
+                <li>
+                    <a href="../templates/setting.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
+                </li>
+                <li>
+                    <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
+                </li>
+                <li class="wid-icon">
+                    <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+                </li>
+            </ul>
+        </nav>
     </header>
         {% block body %}{% endblock %}
     <footer></footer>
