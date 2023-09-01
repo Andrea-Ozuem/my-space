@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Index """
-from models.genre import Albums, Genres
+from models.genre import Genres
 from models.user import User
 from models.tasks import Tasks
 from models import storage

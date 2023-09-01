@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from models import storage
 from models.user import User
 from models.tasks import Tasks
-from flask import Flask, render_template, redirect, request, url_for, make_response, session
+from flask import Flask, render_template, redirect, request, url_for, make_response
 import urllib.parse as urlparse
 import json
 import requests
@@ -14,8 +14,6 @@ import secrets
 import string
 
 app = Flask(__name__)
-
-app.secret_key = 'QVQUqusv641rKBp7g'
 
 CLIENT_ID = os.getenv('CLIENT_ID', None)
 CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
@@ -32,13 +30,13 @@ state = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
 @app.route('/flow', strict_slashes=False)
 def flow():
     '''Flow endpoint for music recommendation'''
-    if session.get('token', None) is None:
+    if not user.is_auth:
         print('fail')
         return redirect('/login')
-    token = session.get('token')
-    refresh = session.get('refresh')
-    expires = session.get('expires')
-    if expires < datetime.now(pytz.timezone('UTC')):
+    token = user.token
+    refresh = user.refresh
+    expires = user.expires
+    if expires < datetime.utcnow():
         print('expired')
         token = refresh_token()
     
@@ -118,7 +116,7 @@ def callback():
             make_response(jsonify(error_msg), 404)
             return response
         token = get_token(code)
-        return redirect('/')
+        return redirect(url_for('main'))
 
 def get_token(code):
     '''gets user access token/refresh token'''
@@ -136,21 +134,15 @@ def get_token(code):
         },
         'json': True
     }
-    try:
-        response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
-        res = response.json()
-    except exception:
-        return('/')
-    #later handle if status code == 200 .. else
+    response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
+    if response.status_code != 200:
+        return redirect('/')
+    res = response.json()
     token = res.get('access_token')
     refresh = res.get('refresh_token')
     expires = res.get('expires_in')
-    session.permanent = True
-    session['token'] = token
-    session['refresh'] = refresh
-    expires = datetime.now() + timedelta(seconds=expires)
-    session['expires'] = expires
-    print(session)
+    expires = datetime.utcnow() + timedelta(seconds=expires)
+    update_tokens(token, expires, refresh)
     return token
 
 def refresh_token():
@@ -172,13 +164,20 @@ def refresh_token():
     res = response.json()
     token = res.get('access_token')
     expires = res.get('expires_in')
-    session['token'] = token
-    expires = datetime.now() + timedelta(seconds=expires)
-    session['expires'] = expires
+    expires = datetime.utcnow() + timedelta(seconds=expires)
+    update_tokens(token, expires, refresh)
     return token
 
 @app.route('/', strict_slashes=False)
 def main():
+#    if len(request.args) > 0:
+ #       code = request.args.get('code')
+  #      req_state = request.args.get('state', None)
+   #     if code is None or state != req_state:
+    #        error_msg = {'error': 'state_mismatch'}
+     #       make_response(jsonify(error_msg), 404)
+      #      return response
+       # token = get_token(code)
     if os.getenv('STORAGE_TYPE', None) == 'db':
         tasks = user.tasks
     else:
@@ -189,9 +188,9 @@ def main():
     except TypeError:
         description = None
         temp = humidity = pressure = speed = 0
-    home = datetime.now().strftime("%I:%M %p")
-    
-    away = pytz.timezone('Asia/Kuwait')
+    home = pytz.timezone(user.tz1)
+    home = datetime.now(home).strftime("%I:%M %p")
+    away = pytz.timezone(user.tz2)
     away = datetime.now(away).strftime('%I:%M %p')
     return render_template('index.html',
                            user=user, total=len(tasks),
@@ -200,6 +199,20 @@ def main():
                            press=pressure, speed=speed,
                            summ=description, home=home,
                            city=user.city, away=away)
+
+def update_tokens(token, expires, refresh=None):
+    '''Updates tokens on db'''
+    #convert expires to isoformat to enable JSON serialisation
+    formatted = expires.isoformat()
+    url = 'http://0.0.0.0:5001/api/v1/users/{}'.format(user.id)
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = {'token': token, 'expires': formatted, 'refresh': refresh, 'is_auth': 1}
+    r = requests.put(url, json=data, headers=headers)
+    print(r.text)
+    return redirect('/')
+
 
 @app.route('/add/<u_id>', strict_slashes=False, methods=['POST'])
 def post_task(u_id):
@@ -210,12 +223,13 @@ def post_task(u_id):
     }
     data = request.form.to_dict()
     data.update({'completed': 0})
-    requests.post(url, json=data, headers=headers)
-    return redirect('/')
+    r = requests.post(url, json=data, headers=headers)
+    print(r.text)
+    return redirect(url_for('main'))
 
 def get_weather(user):
     api = os.getenv('WEATHER_KEY', None)
-    country = user.country
+    country = "Nigeria"
     city = user.city
     endpoint = 'https://api.openweathermap.org/data/2.5/weather?q={},{}&limit=1&appid={}'.format(city, country, api)
     try:

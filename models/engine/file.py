@@ -9,13 +9,11 @@ from models.base_model import BaseModel
 from models.user import User
 from models.genre import Genres
 from models.tasks import Tasks
-from models.genre import Albums
 
 classes = {
         "BaseModel": BaseModel,
         "User": User,
         "Genres": Genres,
-        "Albums": Albums,
         "Tasks": Tasks
 }
 

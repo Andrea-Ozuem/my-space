@@ -22,20 +22,3 @@ class Genres(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes genres"""
         super().__init__(*args, **kwargs)
-
-
-class Albums(BaseModel, Base):
-    """Representation of a artists """
-    if models.storage_t == 'db':
-        __tablename__ = 'albums'
-        deadline = Column(String(128), nullable=False)
-        flow = Column(String(128), nullable=False)
-        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    else:
-        deadline = ""
-        flow = ""
-        user_id = ""
-
-    def __init__(self, *args, **kwargs):
-        """initializes genres"""
-        super().__init__(*args, **kwargs)
