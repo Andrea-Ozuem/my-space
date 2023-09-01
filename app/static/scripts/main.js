@@ -13,10 +13,12 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function( json ) {
             let done = parseInt($('span.done').text())
-            let total = $('span.percent');
+            let total = parseInt($('span.total').text());
             done = json.completed ? done + 1 : done - 1;
             $('span.done').text(done);
-            $('span.percent').text(done/total);
+            let percent = Math.floor(done / total * 100);
+            console.log(percent)
+            $('span.percent').text(percent);
         })
     });
 

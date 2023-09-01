@@ -211,10 +211,10 @@ header {
 }
 
 .progress {
-    width: 2.5rem;
-    height: 2.5rem;
+    height: 2.7rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    font-weight: bold;
     /* border: 1px solid white; */
     background-color: white;
     display: flex;
