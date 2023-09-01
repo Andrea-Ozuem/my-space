@@ -5,6 +5,7 @@ from models import storage
 from models.user import User
 from models.tasks import Tasks
 from flask import Flask, render_template, redirect, request, url_for, make_response, session
+#from flask_session import Session
 import urllib.parse as urlparse
 import json
 import requests
@@ -15,7 +16,10 @@ import string
 
 app = Flask(__name__)
 
-app.secret_key = 'QVQUqusv641rKBp7g'
+#app.secret_key = 'girl'
+#app.config["SESSION_PERMANENT"] = True
+#app.config["SESSION_TYPE"] = "filesystem"
+#Session(app)
 
 CLIENT_ID = os.getenv('CLIENT_ID', None)
 CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
@@ -32,32 +36,36 @@ state = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
 @app.route('/flow', strict_slashes=False)
 def flow():
     '''Flow endpoint for music recommendation'''
-    if session.get('token', None) is None:
-        print('fail')
+    session_contents = []
+    for key, value in session.items():
+        session_contents.append(f"{key}: {value}")    
+    print("<br>".join(session_contents))
+
+    if 'token' not in session and 'refresh' not in session:
         return redirect('/login')
-    token = session.get('token')
-    refresh = session.get('refresh')
-    expires = session.get('expires')
-    if expires < datetime.now(pytz.timezone('UTC')):
-        print('expired')
-        token = refresh_token()
+  #  token = session.get('token')
+ #   refresh = session.get('refresh')
+  #  expires = session.get('expires')
+  #  session.modified = True
+  #  session.permanent = True
+     
+   # if expires < datetime.now():
+    #    print('expired')
+    #    token = refresh_token()
     
+    #token = spotify()
+    print(token, 'token')
     tracks = get_tracks(token)
-    url = 'https://api.spotify.com/v1/recommendations'
+    limit = 1
     params = {
-        'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
-        'seed_genres': 'classical,country',
-        'seed_tracks': '{},{}'.format(tracks[0], tracks[1]),
-        'limit': 1
+    'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
+    'seed_genres': 'rock, samba',
+    'seed_tracks': '{}, {}'.format(track_ids[0], track_ids[1])
     }
     headers = {'Authorization': 'Bearer ' + token}
-    res = requests.get(url, params=params, headers=headers)
-    if res.status_code == 200:
-        res = res.json()
-        href = res.get('tracks')[0].get('external_urls').get('spotify')
-        return redirect(href)
-    else:
-        return redirect('/')
+    res = requests.get(url, params=params, headers=headers).json()
+    href = res.get('tracks').get('external_urls').get('href')
+    return redirect(href)
     
 
 @app.route('/deadline', strict_slashes=False)
@@ -69,12 +77,12 @@ def deadline():
     limit = 1
     params = {
     'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
-    'seed_genres': 'rock, samba',
+    'seed_genres': 'classical, country',
     'seed_tracks': '{}, {}'.format(tracks[0], tracks[1])
     }
     headers = {'Authorization': 'Bearer ' + token}
     res = requests.get(url, params=params, headers=headers).json()
-    href = res.get('tracks')[0].get('external_urls').get('href')
+    href = res.get('tracks').get('external_urls').get('href')
     return redirect(href)
 
 def get_tracks(token):
@@ -82,15 +90,7 @@ def get_tracks(token):
     limit = 2
     url = 'https://api.spotify.com/v1/me/tracks?limit={}'.format(limit)
     headers = {'Authorization': 'Bearer ' + token}
-    res = requests.get(url, headers=headers)
-    if res.status_code != 200:
-        print(res)
-        return redirect('/')
-    else:
-        try:
-            res = res.json()
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
+    res = requests.get(url, headers=headers).json()
     items = res.get('items')
     track_ids = [item.get('track').get('id') for item in items]
     return track_ids
@@ -118,7 +118,18 @@ def callback():
             make_response(jsonify(error_msg), 404)
             return response
         token = get_token(code)
+    return redirect('/')
+
+@app.route('/spotify', strict_slashes=False) 
+def spotify():
+
+    expires = session.get('expires')
+    #if not authorised
+    if not token and not refresh:
+        print('login')
         return redirect('/')
+        print('available')
+        return token
 
 def get_token(code):
     '''gets user access token/refresh token'''
@@ -139,18 +150,18 @@ def get_token(code):
     try:
         response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
         res = response.json()
+        print(res)
     except exception:
         return('/')
     #later handle if status code == 200 .. else
     token = res.get('access_token')
     refresh = res.get('refresh_token')
     expires = res.get('expires_in')
-    session.permanent = True
-    session['token'] = token
-    session['refresh'] = refresh
+#    session['token'] = token
+#    session['refresh'] = refresh
     expires = datetime.now() + timedelta(seconds=expires)
-    session['expires'] = expires
-    print(session)
+#    session.expires = expires
+#    print(session.get('token'), 'in session')
     return token
 
 def refresh_token():
@@ -166,7 +177,7 @@ def refresh_token():
             'authorization': 'basic ' + base64.b64encode((client_cred).encode()).decode(),
             'content-type': 'application/x-www-form-urlencoded'
         },
-        'json': True
+        'json': true
     }
     response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
     res = response.json()
@@ -211,6 +222,7 @@ def post_task(u_id):
     data = request.form.to_dict()
     data.update({'completed': 0})
     requests.post(url, json=data, headers=headers)
+    print(type(data))
     return redirect('/')
 
 def get_weather(user):

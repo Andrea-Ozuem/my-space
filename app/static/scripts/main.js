@@ -13,8 +13,10 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function( json ) {
             let done = parseInt($('span.done').text())
-            done = json.completed ? done + 1 : done - 1
-            $('span.done').text(done)
+            let total = $('span.percent');
+            done = json.completed ? done + 1 : done - 1;
+            $('span.done').text(done);
+            $('span.percent').text(done/total);
         })
     });
 
@@ -27,6 +29,4 @@ $(document).ready(function () {
             $('.widgets').addClass('pane');
         }
     })
-
-    
 });
