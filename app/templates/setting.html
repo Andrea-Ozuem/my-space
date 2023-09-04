@@ -1,37 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="../static/scripts/calendar.js" defer></script>    
-    <script src="../static/scripts/main.js" defer></script>
-    <title>My Space</title>
-</head>
-<body>
-    <header>
-        <nav class="container">
-            <p>My Space</p>
-            <ul class="nav flex">
-                <li>
-                    <a href="/login"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
-                </li>
-                <li>
-                    <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
-                </li>
-                <li class="wid-icon">
-                    <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
-                </li>
-            </ul>
-        </nav>
-    </header>
+{% extends "layout.html" %}
+
+{% block body %}
     <main class="container" id="setting">
         <h1>Edit User Settings</h1>
         <form action="" method="POST">
@@ -89,14 +58,5 @@
             <input type="submit" value="Update">
         </form>  
     </main>
-    <footer></footer>
-</body>
-</html>
 
-<!-- {% extends "layout.html" %}
-
-<h1>Edit User Settings</h1>
-
-{% block body %}
-
-{% endblock %} -->
+{% endblock %}
