@@ -86,7 +86,7 @@ header {
 }
 
 .bold {
-    font-weight: 700;
+    font-weight: var(--fw-bold);
 }
 
 /* Widget section */
@@ -257,7 +257,7 @@ header {
 
 /* Tp do section */
 .tasks h3 {
-    font-weight: 700;
+    font-weight: var(--fw-bold);
     margin: 0.5em;
     margin-bottom: 1em;
 }
@@ -316,7 +316,7 @@ li:hover .custom-check,
     opacity: 0.5;
 }
 
-form {
+.tasks form {
     display: flex;
 }
 
@@ -434,4 +434,75 @@ form {
         }
 
     }
+
+    /* form */
+    fieldset {
+        flex-direction: column;
+    }
 }
+
+/* Settings */
+#setting {
+    width: 70%;
+    margin: 1rem auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+fieldset {
+    margin-bottom: 2em;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    padding: .2rem 2rem .5rem 2rem;
+    line-height: 1.2;
+    /* border: 0; */
+}
+
+legend {
+    text-align: center;
+    padding: 0 5px 0 5px;
+}
+
+label {
+    margin-right: 5px;
+}
+
+input, select {
+    padding: 5px;
+    /* width: 20em; */
+    color: white;
+    background: transparent;
+    border: 1.5px var(--clr-grey) solid;
+    border-radius: 5px;
+    outline: none;
+}
+
+.user input {
+    width: 50%;
+}
+
+.user {
+    /* text-align: center; */
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input[type=submit] {
+    background-color: var(--clr-accent);
+    font-size: 1rem;
+    padding: .5rem .7rem;
+    border-radius: 10px;
+}
+
+.user label {
+    /* font-weight: 700; */
+}
+.user div div {
+    width: 100%;
+    margin-top: 4px;
+}
+
+

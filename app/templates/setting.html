@@ -1,7 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="../static/scripts/calendar.js" defer></script>    
+    <script src="../static/scripts/main.js" defer></script>
+    <title>My Space</title>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <p>My Space</p>
+            <ul class="nav flex">
+                <li>
+                    <a href="/login"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
+                </li>
+                <li>
+                    <a href="../templates/setting.html"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
+                </li>
+                <li class="wid-icon">
+                    <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container" id="setting">
+        <h1>Edit User Settings</h1>
+        <form action="" method="POST">
+            <fieldset class="genre">
+                <legend>Choose Your Fav Genres</legend>
+                <div class="set-flow">
+                    <label for="flow">Flow</label>
+                    <input type="text" name="flow" id="flow"></input>
+                </div>
+                <div class="set-dead">
+                    <label for="deadline">Deadline</label>
+                    <input name="deadline" id="deadline"></input>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Choose Your Timezones</legend>
+                <div class="tz1">
+                    <label for="tz1">Home</label>
+                    <select name="tz1" id="tz1">
+                        <!-- gotten from backend -->
+                        <option value="Kuwait/Asia">Kuwait/Asia</option>
+                        <option value="Lagos/Nigeria">Lagos/Nigeria</option>
+                    </select>
+                </div>
+                <div class="tz2">
+                    <label for="tz2">Away</label>
+                    <select name="tz2" id="tz2">
+                        <!-- gotten from backend -->
+                        <option value="Kuwait/Asia">Kuwait/Asia</option>
+                        <option value="Lagos/Nigeria">Lagos/Nigeria</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset class="user">
+                <legend>User Info</legend>
+                <div class="name">
+                    <label for="name">Name</label>
+                    <div><input id="name" name="name" type="text"></div>
+                </div>
+                <div class="country">
+                    <label for="country">Country</label>
+                    <div><input id="country" name="country" type="text"></div>
+                </div>
+                <div class="city">
+                    <label for="city">City</label>
+                    <div><input type="text" name="city" id="city"></div>
+                </div>
+                <div class="artist">
+                    <label for="artist">Artist</label>
+                    <div><input id="artist" name="artist" type="text"></div>
+                </div>
+            </fieldset>
+
+            <input type="submit" value="Update">
+        </form>  
+    </main>
+    <footer></footer>
+</body>
+</html>
+
+<!-- {% extends "layout.html" %}
 
 <h1>Edit User Settings</h1>
-{% extends "layout.html" %}
 
 {% block body %}
-    <!-- Later replace all her and delete above -->
-{% endblock %}
+
+{% endblock %} -->
