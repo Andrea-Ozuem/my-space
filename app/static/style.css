@@ -58,14 +58,15 @@ main {
     width: 100%;
 }
 .container {
-    /* max-width: 1000px; */
-    /* position: relative; */
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     width: 95%;
     margin: 0 auto;
 }
 
 header + .container {
-    margin: 2em auto;
+    margin: 1.5em auto;
 }
 
 .flex {
@@ -206,7 +207,7 @@ header {
 
 .info h2 {
     font-weight: normal;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
     font-size: 2em;
 }
 
@@ -408,7 +409,7 @@ form {
     .pane {
         display: initial;
         position: absolute;
-        top: 2.3rem;
+        top: 0;
         right: 0;
         background: hsl(0 0% 20% / 0.4);
         backdrop-filter: blur(1rem);
