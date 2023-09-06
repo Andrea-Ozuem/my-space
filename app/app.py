@@ -20,6 +20,7 @@ CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
 REDIRECT_URI = "http://localhost:5000/callback"
 TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token"
 PROFILE_ENDPOINT = "https://api.spotify.com/v1/me"
+CLIENT_CRED = CLIENT_ID + ':' + CLIENT_SECRET
 
 
 user = storage.get(User, '00a11245-12fa-436e-9ccc-967417f8c30a')
@@ -38,7 +39,7 @@ def flow():
     expires = user.expires
     if expires < datetime.utcnow():
         print('expired')
-        token = refresh_token()
+        token = refresh_token(refresh)
     
     tracks = get_tracks(token)
     url = 'https://api.spotify.com/v1/recommendations'
@@ -120,7 +121,6 @@ def callback():
 
 def get_token(code):
     '''gets user access token/refresh token'''
-    client_cred = CLIENT_ID + ':' + CLIENT_SECRET
     auth_options = {
         'url': 'https://accounts.spotify.com/api/token',
         'data': {
@@ -129,7 +129,7 @@ def get_token(code):
             'grant_type': 'authorization_code'
         },
         'headers': {
-            'authorization': 'basic ' + base64.b64encode((client_cred).encode()).decode(),
+            'authorization': 'basic ' + base64.b64encode((CLIENT_CRED).encode()).decode(),
             'content-type': 'application/x-www-form-urlencoded'
         },
         'json': True
@@ -145,22 +145,22 @@ def get_token(code):
     update_tokens(token, expires, refresh)
     return token
 
-def refresh_token():
+def refresh_token(refresh):
     '''refreshes spotify access token'''
-    client_cred = client_id + ':' + client_secret
     auth_options = {
         'url': 'https://accounts.spotify.com/api/token',
         'data': {
-            'grant_type': 'authorization_code',
+            'grant_type': 'refresh_token',
             'refresh_token': refresh
         },
         'headers': {
-            'authorization': 'basic ' + base64.b64encode((client_cred).encode()).decode(),
-            'content-type': 'application/x-www-form-urlencoded'
+            'authorization': 'basic ' + base64.b64encode((CLIENT_CRED).encode()).decode(),
         },
         'json': True
     }
     response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
+    if response.status_code != 200:
+        return redirect('/') 
     res = response.json()
     token = res.get('access_token')
     expires = res.get('expires_in')
@@ -170,14 +170,6 @@ def refresh_token():
 
 @app.route('/', strict_slashes=False)
 def main():
-#    if len(request.args) > 0:
- #       code = request.args.get('code')
-  #      req_state = request.args.get('state', None)
-   #     if code is None or state != req_state:
-    #        error_msg = {'error': 'state_mismatch'}
-     #       make_response(jsonify(error_msg), 404)
-      #      return response
-       # token = get_token(code)
     if os.getenv('STORAGE_TYPE', None) == 'db':
         tasks = user.tasks
     else:
@@ -200,6 +192,13 @@ def main():
                            summ=description, home=home,
                            city=user.city, away=away)
 
+@app.route('/settings', strict_slashes=False)
+def settings():
+    '''Render settings page'''
+    all_tz = pytz.all_timezones
+    return render_template('setting.html',
+                           user=user, all=all_tz)
+
 def update_tokens(token, expires, refresh=None):
     '''Updates tokens on db'''
     #convert expires to isoformat to enable JSON serialisation
@@ -213,19 +212,6 @@ def update_tokens(token, expires, refresh=None):
     print(r.text)
     return redirect('/')
 
-
-@app.route('/add/<u_id>', strict_slashes=False, methods=['POST'])
-def post_task(u_id):
-    'Sends a post request to api and renders updated page'
-    url = 'http://0.0.0.0:5001/api/v1/users/{}/tasks'.format(u_id)
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = request.form.to_dict()
-    data.update({'completed': 0})
-    r = requests.post(url, json=data, headers=headers)
-    print(r.text)
-    return redirect(url_for('main'))
 
 def get_weather(user):
     api = os.getenv('WEATHER_KEY', None)

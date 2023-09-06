@@ -21,6 +21,39 @@ $(document).ready(function () {
             $('span.percent').text(percent);
         })
     });
+    $('form.new-task').submit(function(event) {
+        event.preventDefault();
+
+        // Get input value
+        let todo = $('input[name="description"]');
+        let u_id = todo.attr('data-id');
+        data = {};
+        data.completed = 0;
+        data.description = todo.val()
+
+        $.ajax({
+        type: "POST",
+        url: `http://0.0.0.0:5001/api/v1/users/${u_id}/tasks`,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(response) {
+          console.log(response)
+          $('ul').prepend(`<li>
+                        <input type="checkbox" id="${response.id}" data-id="${response.id}">
+                        <label for="${response.id}">
+                            <span class="custom-check"><i class="fa-solid fa-check"></i>
+                            </span>
+                            ${response.description}
+                        </label>
+                    </li>`)
+          },
+        error: function(error) {
+          console.error("Error adding todo:", error);
+          }
+       });
+       $('input[name="description"]').val("")
+    });
+
 
     $('.wid-icon').click(function() {
         console.log('here')

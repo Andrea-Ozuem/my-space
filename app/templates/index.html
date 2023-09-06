@@ -21,19 +21,19 @@
                     {% for task, i in t_list %}
                     <li>
                         {% if task.completed %}
-                            <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}" checked>
+                            <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked>
                         {% else %}
-                            <input type="checkbox" id="check{{ i }}" data-id="{{ task.id }}">
+                            <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
                         {% endif %}
-                        <label for="check{{ i }}">
+                        <label for="check{{ task.id }}">
                             <span class="custom-check"><i class="fa-solid fa-check"></i>
                             </span>
                             {{ task.description }}
                         </label>
                     </li>
                     {% endfor %}
-                    <form action="/add/{{ user.id}}" method="POST">
-                        <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
+                    <form class="new-task">
+                        <input type="text" data-id="{{ user.id}}" class="new" name="description" placeholder="Add task" aria-label="new task">
                         <button class="btn" aria-label="create new task">+</button>
                     </form>
                 </ul>
