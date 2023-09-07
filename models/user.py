@@ -37,7 +37,7 @@ class User(BaseModel, Base):
         last_name = ""
         country = ""
         city = ""
-        fav_artist = ""
+        artist = ""
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
