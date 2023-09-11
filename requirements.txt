@@ -3,4 +3,3 @@ Flask_Cors==3.0.10
 pytz==2023.3
 Requests==2.31.0
 SQLAlchemy==2.0.12
-flask-session=0.5.0

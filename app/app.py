@@ -45,7 +45,7 @@ def flow():
     url = 'https://api.spotify.com/v1/recommendations'
     params = {
         'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
-        'seed_genres': 'classical,country',
+        'seed_genres': '{}'.format(user.genres[0].flow),
         'seed_tracks': '{},{}'.format(tracks[0], tracks[1]),
         'limit': 1
     }
@@ -76,7 +76,7 @@ def deadline():
     url = 'https://api.spotify.com/v1/recommendations'
     params = {
         'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
-        'seed_genres': 'rock,samba',
+        'seed_genres':  '{}'.format(user.genres[0].deadline),
         'seed_tracks': '{},{}'.format(tracks[0], tracks[1]),
         'limit': 1
     }
