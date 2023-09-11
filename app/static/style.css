@@ -69,6 +69,11 @@ header + .container {
     margin: 1.5em auto;
 }
 
+nav p a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .flex {
     display: flex;
     justify-content: space-between;

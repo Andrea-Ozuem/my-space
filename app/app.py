@@ -57,24 +57,37 @@ def flow():
         return redirect(href)
     else:
         return redirect('/')
-    
+
 
 @app.route('/deadline', strict_slashes=False)
 def deadline():
     '''Deadline endpoint'''
-    #handles
-    token = spotify()
+    if not user.is_auth:
+        print('fail')
+        return redirect('/login')
+    token = user.token
+    refresh = user.refresh
+    expires = user.expires
+    if expires < datetime.utcnow():
+        print('expired')
+        token = refresh_token(refresh)
+    
     tracks = get_tracks(token)
-    limit = 1
+    url = 'https://api.spotify.com/v1/recommendations'
     params = {
-    'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
-    'seed_genres': 'rock, samba',
-    'seed_tracks': '{}, {}'.format(tracks[0], tracks[1])
+        'seed_artists': '4NHQUGzhtTLFvgF5SZesLK',
+        'seed_genres': 'rock,samba',
+        'seed_tracks': '{},{}'.format(tracks[0], tracks[1]),
+        'limit': 1
     }
     headers = {'Authorization': 'Bearer ' + token}
-    res = requests.get(url, params=params, headers=headers).json()
-    href = res.get('tracks')[0].get('external_urls').get('href')
-    return redirect(href)
+    res = requests.get(url, params=params, headers=headers)
+    if res.status_code == 200:
+        res = res.json()
+        href = res.get('tracks')[0].get('external_urls').get('spotify')
+        return redirect(href)
+    else:
+        return redirect('/')
 
 def get_tracks(token):
     '''Get 2 User Saved Tracks'''
