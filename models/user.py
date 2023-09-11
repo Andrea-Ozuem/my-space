@@ -19,6 +19,7 @@ class User(BaseModel, Base):
         first_name = Column(String(128), nullable=False)
         last_name = Column(String(128), nullable=True)
         city = Column(String(128), nullable=False)
+        country = Column(String(128), nullable=False)
         tz1 = Column(String(128), nullable=False)
         tz2 = Column(String(128), nullable=False, default="US/Central")
         is_auth = Column(Boolean, default=False, nullable=False)
