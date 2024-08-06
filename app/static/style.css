@@ -377,6 +377,11 @@ li:hover .custom-check,
     width: 10em;
     text-align: center;
 }
+
+.music a {
+    text-decoration: none;
+}
+
 .flow {
     background-color: rgb(225, 236, 236);
     color: var(--clr-black);

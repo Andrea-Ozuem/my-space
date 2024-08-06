@@ -15,8 +15,8 @@ Base = declarative_base()
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
     id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=datetime.now, nullable=False)
+    updated_at = Column(DateTime, default=datetime.now, nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
@@ -27,16 +27,16 @@ class BaseModel:
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.fromisoformat(kwargs["created_at"])
             else:
-                self.created_at = datetime.utcnow()
+                self.created_at = datetime.now()
             if kwargs.get("updated_at", None) and type(self.updated_at) is str:
                 self.updated_at = datetime.fromisoformat(kwargs["updated_at"])
             else:
-                self.updated_at = datetime.utcnow()
+                self.updated_at = datetime.now()
             if kwargs.get("id", None) is None:
                 self.id = str(uuid.uuid4())
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
+            self.created_at = datetime.now()
             self.updated_at = self.created_at
 
     def __str__(self):

@@ -18,35 +18,10 @@ class User(BaseModel, Base):
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=False)
         last_name = Column(String(128), nullable=True)
-        city = Column(String(128), nullable=False)
-        country = Column(String(128), nullable=False)
-        tz1 = Column(String(128), nullable=False)
-        tz2 = Column(String(128), nullable=False, default="US/Central")
-        is_auth = Column(Boolean, default=False, nullable=False)
-        token = Column(String(256), nullable=True)
-        refresh = Column(String(256), nullable=True)
-        expires = Column(DateTime, nullable=True)
-        artist = Column(String(64), nullable=False)
-        tasks = relationship("Tasks", backref="user",
-                              cascade="all, delete, delete-orphan")
-        genres = relationship("Genres", backref="user",
-                               cascade="all, delete, delete-orphan")
-    else:
-        email = ""
-        password = ""
-        first_name = ""
-        last_name = ""
-        country = ""
-        city = ""
-        artist = ""
+        city = Column(String(128), nullable=True)
+        tz1 = Column(String(128), nullable=True)
+        tz2 = Column(String(128), nullable=True, default="US/Central")
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
-
-    if models.storage_t != "db":
-        @property
-        def tasks(self):
-            tasks = models.storage.all(Tasks)
-            task_list = [task for task in tasks.values() if task.user_id == self.id]
-            return task_list

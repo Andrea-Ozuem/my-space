@@ -2,7 +2,7 @@
 """ holds class Tasks"""
 
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Boolean
+from sqlalchemy import Column, String, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 import models
 
@@ -14,10 +14,7 @@ class Tasks(BaseModel, Base):
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         description = Column(String(248), nullable=False)
         completed = Column(Boolean(create_constraint=True), nullable=False)
-    else:
-        user_id = ""
-        description = ""
-        completed = ""
+        due_date = Column(DateTime, nullable=False)
 
     def __init__(self, *args, **kwargs):
         """initializes tasks"""

@@ -19,8 +19,6 @@ def get_users():
         list_users.append(user.to_dict())
     return jsonify(list_users)
 
-#@app_views.route('/users/<user_id>/', methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
-
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
