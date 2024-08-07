@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 """ objects that handle all default RestFul API actions for Tasks """
 
+from flask import abort, jsonify, make_response, request
+
+from api.v1.auth.middleware import token_required
 from models.user import User
 from models import storage
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
-
 
 @app_views.route('/users', strict_slashes=False)
-def get_users():
+@token_required
+def get_users(current_user: User):
     """
     Retrieves the list of all user objects
     or a specific user
@@ -21,7 +23,8 @@ def get_users():
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
-def get_user(user_id):
+@token_required
+def get_user(current_user: User, user_id):
     """ Retrieves an user """
     user = storage.get(User, user_id)
     if not user:
@@ -32,7 +35,8 @@ def get_user(user_id):
 
 @app_views.route('/users/<user_id>', methods=['DELETE'],
                  strict_slashes=False)
-def delete_user(user_id):
+@token_required
+def delete_user(current_user: User, user_id):
     """
     Deletes a user Object
     """
@@ -66,7 +70,8 @@ def post_user():
     return make_response(jsonify(instance.to_dict()), 201)
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
-def put_user(user_id):
+@token_required
+def put_user(current_user: User, user_id: str):
     """
     Updates a user
     """

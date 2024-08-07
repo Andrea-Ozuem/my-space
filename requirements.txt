@@ -1,6 +1,8 @@
+bcrypt==4.2.0
 certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
+ecdsa==0.19.0
 Flask==2.2.0
 Flask-Cors==3.0.10
 greenlet==3.0.3
@@ -9,11 +11,15 @@ itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
 mysqlclient==2.2.4
+psycopg2-binary==2.9.9
+pyasn1==0.6.0
 python-dotenv==1.0.1
+python-jose==3.3.0
 pytz==2023.3
 requests==2.31.0
+rsa==4.9
 six==1.16.0
 SQLAlchemy==2.0.12
 typing_extensions==4.12.2
 urllib3==2.2.2
-Werkzeug==3.0.3
+Werkzeug==2.2.2

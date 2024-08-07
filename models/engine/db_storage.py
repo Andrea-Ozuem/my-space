@@ -5,7 +5,6 @@ Contains the class DBStorage
 
 import models
 from models.base_model import BaseModel, Base
-from models.genre import Genres
 from models.tasks import Tasks
 from models.user import User
 from os import getenv
@@ -19,7 +18,6 @@ load_dotenv()
 classes = {
         "BaseModel": BaseModel,
         "User": User,
-        "Genres": Genres,
         "Tasks": Tasks
 }
 
@@ -31,15 +29,17 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        MYSQL_USER = getenv('MYSQL_USER')
-        MYSQL_PWD = getenv('MYSQL_PWD')
-        MYSQL_HOST = getenv('MYSQL_HOST')
-        MYSQL_DB = getenv('MYSQL_DB')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(MYSQL_USER,
-                                             MYSQL_PWD,
-                                             MYSQL_HOST,
-                                             MYSQL_DB))
+        DB_USER = getenv('DB_USER')
+        DB_PWD = getenv('DB_PWD')
+        DB_HOST = getenv('DB_HOST')
+        DB_PORT = getenv('DB_PORT')
+        DB_NAME = getenv('DB_NAME')
+        self.__engine = create_engine('postgresql://{}:{}@{}:{}/{}'.
+                                      format(DB_USER,
+                                             DB_PWD,
+                                             DB_HOST,
+                                             DB_PORT,
+                                             DB_NAME))
 
     def all(self, cls=None):
         """query on the current database session"""
@@ -84,12 +84,7 @@ class DBStorage:
         if cls not in classes.values():
             return None
 
-        all_cls = models.storage.all(cls)
-        for value in all_cls.values():
-            if (value.id == id):
-                return value
-
-        return None
+        return self.__session.query(cls).filter(cls.id == id).first()
 
     def count(self, cls=None):
         """
@@ -105,3 +100,9 @@ class DBStorage:
             count = len(models.storage.all(cls).values())
 
         return count
+
+    def exists(self, cls, email):
+        """
+        Checks if a user exists
+        """
+        return self.__session.query(cls).filter(cls.email == email).first()

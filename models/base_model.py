@@ -46,7 +46,7 @@ class BaseModel:
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now()
         models.storage.new(self)
         models.storage.save()
 
@@ -54,10 +54,13 @@ class BaseModel:
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict:
-            new_dict["created_at"] = new_dict["created_at"].isoformat()
+            del new_dict["created_at"]
         if "updated_at" in new_dict:
-            new_dict["updated_at"] = new_dict["updated_at"].isoformat()
-        new_dict["__class__"] = self.__class__.__name__
+            del new_dict["updated_at"]
+        if "__class__" in new_dict:
+            del new_dict["__class__"]
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
+        if "password" in new_dict:
+            del new_dict["password"]
         return new_dict
