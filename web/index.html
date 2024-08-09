@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app/static/style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="app/static/scripts/calendar.js" defer></script>    
-    <script src="app/static/scripts/main.js" defer></script>
+    <script src="/scripts/calendar.js" defer></script>    
+    <script src="/scripts/main.js" defer></script>
+    <script src="/scripts/time.js" defer></script>
+    <script src="/scripts/weather.js" defer></script>
     <title>My Space</title>
 </head>
 <body>
@@ -36,44 +38,56 @@
         <div class="container">
             <main class="flex">
                 <div class="info">
-                    <h2>Good morning, <br> <span class="accent bold">{{ user.first_name }}</span></h2>
+                    <h2>Good morning, <br> <span class="accent bold"> User </span></h2>
                     <!-- <h1>Yay! Almost Done</h1> -->
                     <div class="summary flex">
                         <div class="sum-text">
                             <p class="bold">Daily Tasks</p>
-                            <p><span class="done"> {{ done }}</span> out of <span class="total"> {{ total }}</span> done</p>
+                            <p><span class="done"> 0</span> out of <span class="total"> 0</span> done</p>
                         </div>
                         <div class="progress">
-                            <span class="percent">{{ done // total * 100 }}</span>%
+                            <span class="percent">0</span>%
                         </div>
                     </div>
 
                     <div class="tasks">
                         <h3>My Tasks</h3>
                         <ul>
-                            {% for task, i in t_list %}
                             <li>
-                                {% if task.completed %}
-                                    <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked>
-                                {% else %}
-                                    <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
-                                {% endif %}
+                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
+                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
                                 <label for="check{{ task.id }}">
-                                    <span class="custom-check"><i class="fa-solid fa-check"></i>
-                                    </span>
-                                    {{ task.description }}
+                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
+                                    <p>description</p>
                                 </label>
                             </li>
-                            {% endfor %}
+                            <li>
+                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
+                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
+                                <label for="check{{ task.id }}">
+                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
+                                    <p>Do the laundry</p>
+                                </label>
+                            </li>
+                            <li>
+                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
+                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
+                                <label for="check{{ task.id }}">
+                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
+                                    <p>Take Job on a walk</p>
+                                </label>
+                            </li>
                             <form class="new-task">
                                 <input type="text" data-id="{{ user.id}}" class="new" name="description" placeholder="Add task" aria-label="new task">
-                                <button class="btn" aria-label="create new task">+</button>
+                                <button class="btn" aria-label="create new task">
+                                    <svg width="13" height="13"><path fill="#70292D" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg>
+                                </button>
                             </form>
                         </ul>                        
                     </div>
                     <div class="music flex">
-                        <div class="flow"><a href="http://0.0.0.0:5000/flow" target="_blank">Get flow</a></div>
-                        <div class="deadline"><a href="http://0.0.0.0:5000/deadline" target="_blank">Get deadline</a></div>
+                        <div class="flow"><a href=# target="_blank">Get flow</a></div>
+                        <div class="deadline"><a href=# target="_blank">Get deadline</a></div>
                     </div>
                 </div>
 
@@ -82,7 +96,7 @@
                 <div class="widget">
                     <h3>CALENDAR</h3>
                     <div class="calendar">
-                        <p class="cal-head"> <span class="month">JUNE</span>  <span class="year">2023</span></p>
+                        <p class="cal-head"> <span class="month"></span>  <span class="year"></span></p>
                         <div class="weekdays">
                             <div>Sun</div>
                             <div>Mon</div>
@@ -102,38 +116,38 @@
                     <div class="time flex">
                         <div class="home">
                             <p class="bold">HOME</p>
-                            {{ home }}
+                            <p id="home-time"></p>
                         </div>
                         <!-- Use ptz library -->
                         <div class="vl"></div>
                         <div class="away">
                             <p class="bold">MANILA</p>
-                            {{ away }}
+                            <p id="away-time"></p>
                         </div>
                     </div>
                 </div>
                 <div class="widget">
                     <h3>WEATHER</h3>
                     <div class="weather-sum">
-                        <p class="bold">{{ city }}</p>
-                        <p>{{ summ }}</p>
+                        <p class="bold city">Lagos</p>
+                        <p class="summ">Summary</p>
                     </div>
                     <div class="weather">
                         <div class="stat flex">
-                            <p>Current Temperature</p>
-                            <p>{{ t }} &deg;C</p>
+                            <p>Feels Like</p>
+                            <p class="temp">20 &deg C</p>
                         </div>
                         <div class="stat flex">
                             <p>Wind Speed</p>
-                            <p>{{ speed }} km/h</p>
+                            <p class="speed">3.33 m/s</p>
                         </div>
                         <div class="stat flex">
                             <p>Humidity</p>
-                            <p>{{ humid }} %</p>
+                            <p class="humid">50 %</p>
                         </div>
                         <div class="stat flex">
                             <p>Pressure</p>
-                            <p>{{ press }} hPa</p>
+                            <p class="pressure">1013.25 hPa</p>
                         </div>
                     </div>
                 </div>

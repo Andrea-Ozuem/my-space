@@ -23,7 +23,6 @@ class User(BaseModel, Base):
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=True)
     city = Column(String(128), nullable=True)
-    tz2 = Column(String(128), nullable=True)
     tz1 = Column(String(128), nullable=True, default="US/Central")
     tasks = relationship("Tasks", back_populates="user", cascade="all, delete-orphan")
 

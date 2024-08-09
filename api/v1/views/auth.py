@@ -31,7 +31,7 @@ def register():
 
     access_token = user.create_access_token(user.id)
 
-    response = {
+    response = jsonify({
         "status_code": 201,
         "message": "User created successfully",
         "data": {
@@ -39,9 +39,9 @@ def register():
             "token_type": "bearer",
             "user": user.to_dict()
         }
-    }
+    })
 
-    return jsonify(response), 201
+    return response, 201
 
 
 @auth_views.route('/login', methods=['POST'], strict_slashes=False)

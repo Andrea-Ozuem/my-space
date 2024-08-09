@@ -22,6 +22,13 @@ def get_users(current_user: User):
     return jsonify(list_users)
 
 
+@app_views.route('/me', methods=['GET'], strict_slashes=False)
+@token_required
+def get_current_user(current_user: User):
+    """ Retrieves an user """
+    return jsonify(current_user.to_dict())
+
+
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 @token_required
 def get_user(current_user: User, user_id):

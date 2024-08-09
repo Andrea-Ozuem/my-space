@@ -3,12 +3,16 @@
     --fw-bold: 700;
     --fw-light: 300;
     --fw-base:400;
-    --clr-black: #202020;
+    --clr-black: #171717;
     --ff-size: 14px;
-    --clr-accent: #C5ADED;
+    --clr-accent: #D0BCF0;
     --ff: 'Nunito', sans-serif;
-    --clr-sec: rgb(255, 190, 210);
+    --clr-sec: #70292D;
+    /* --clr-sec: #324710; */
+    /* --clr-sec: rgb(255, 190, 210); */
     --clr-grey: #313131;
+    /* --clr-grey: #2a2a2a; */
+    /* --clr-grey: #171414; */
 }
 
 *,
@@ -269,6 +273,7 @@ header {
 
 .tasks ul {
     margin-left: 1em;
+    margin-right: 1em;
 }
 
 .tasks li {
@@ -292,19 +297,23 @@ li label {
 }
 
 .custom-check {
-    width: var(--ff-size);
-    height: var(--ff-size);
+    width: var(--ff-base);
+    height: var(--ff-base);
     font-size: 10px;
-    margin-right: var(--ff-size);
+    margin-right: 6px;
     border: 2px solid #554160;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 30%;
+    border-radius: 50%;
     cursor: pointer;
     transform: scale(1);
     transition: transform 300ms ease-in-out;
     color: transparent;
+}
+
+.custom-check i {
+    line-height: inherit;
 }
 
 li:hover .custom-check,
@@ -323,18 +332,28 @@ li:hover .custom-check,
 
 .tasks form {
     display: flex;
+    align-items: center;
+}
+
+.tasks label p {
+    border-bottom: 1px solid #6A6A6A;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 90%;
+    margin-right: 0;
 }
 
 .new {
     background: transparent;
     border: 0;
     color: inherit;
-    border-bottom: 1px solid var(--clr-grey);
+    /* border-bottom: 1px solid var(--clr-grey); */
     font-size: inherit;
     outline: none !important;
     transition: border-bottom 150ms ease-in;
     order: 2;
     font-size: var(--ff-size);
+    /* width: 80%; */
 }
 .new:focus, .new:active {
     background: transparent;
@@ -360,10 +379,10 @@ li:hover .custom-check,
     transition: color 150ms ease;
     border-radius: 50%;
 }
-.new:hover + .btn, .btn:hover{
+.new:hover + .btn, .btn:hover {
     background-color: var(--clr-sec);
     /* border-radius: 50%; */
-    color: var(--clr-grey);    
+    /* color: var(--clr-black);  */
 }
 
 .music {
@@ -383,12 +402,14 @@ li:hover .custom-check,
 }
 
 .flow {
-    background-color: rgb(225, 236, 236);
+    /* background-color: rgb(225, 236, 236); */
+    background-color: #BCF0D0;
     color: var(--clr-black);
 }
 
 .deadline {
-    background-color: rgb(255, 190, 255);
+    /* background-color: rgb(255, 190, 255); */
+    background-color: #F0D0BC;
     color: var(--clr-black);
 }
 
@@ -486,7 +507,7 @@ legend {
 }
 
 label {
-    margin-right: 5px;
+    /* margin-right: 5px; */
 }
 
 input, select {
@@ -495,7 +516,6 @@ input, select {
     color: white;
     background: transparent;
     border: 1.5px var(--clr-grey) solid;
-    border-radius: 5px;
     outline: none;
 }
 

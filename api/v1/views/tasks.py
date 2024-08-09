@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 """ objects that handle all default RestFul API actions for Tasks """
 
+from flask import abort, jsonify, make_response, request
+
 from models.user import User
 from models.tasks import Tasks
 from models import storage
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
+from api.v1.auth.middleware import token_required
 
 
 @app_views.route('/users/<user_id>/tasks', methods=['GET'],
                  strict_slashes=False)
-def get_tasks(user_id):
+def get_tasks(current_user: User, user_id):
     """
     Retrieves the list of all tasks objects
     of a specific User, or a specific task
@@ -27,7 +29,7 @@ def get_tasks(user_id):
 
 @app_views.route('/users/<user_id>/tasks', methods=['POST'],
                  strict_slashes=False)
-def post_task(user_id):
+def post_task(current_user: User, user_id):
     """
     Creates a Task for a particular User
     """
@@ -42,7 +44,6 @@ def post_task(user_id):
         abort(400, description="Missing completed")
 
     data = request.get_json()
-    print(type(data))
     instance = Tasks(**data)
     instance.user_id = user.id
     instance.save()
@@ -50,7 +51,7 @@ def post_task(user_id):
 
 
 @app_views.route('/tasks/<task_id>', methods=['GET'], strict_slashes=False)
-def get_task(task_id):
+def get_task(current_user: User, task_id):
     """
     Retrieves a specific task based on id
     """
@@ -61,14 +62,13 @@ def get_task(task_id):
 
 
 @app_views.route('/tasks/<task_id>', methods=['PUT'], strict_slashes=False)
-def put_task(task_id):
+def put_task(current_user: User, task_id):
     """
     Updates a Task
     """
     task = storage.get(Tasks, task_id)
     if not task:
         abort(404)
-
     if not request.get_json():
         abort(400, description="Not a JSON")
 
@@ -83,7 +83,7 @@ def put_task(task_id):
 
 
 @app_views.route('/tasks/<task_id>', methods=['DELETE'], strict_slashes=False)
-def delete_task(task_id):
+def delete_task(current_user: User, task_id):
     """
     Deletes a task based on id provided
     """
