@@ -23,9 +23,8 @@ function geoFindMe() {
         function success(position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
-            const API_KEY = 'cf49985e84c8f8939400cb7aec011161'
-            
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+            const WEATHER_KEY = process.env.WEATHER_KEY;
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_KEY}`;
             
             fetch(url)
                 .then(response => {
