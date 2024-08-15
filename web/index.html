@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="/scripts/calendar.js" defer></script>    
-    <script src="/scripts/main.js" defer></script>
-    <script src="/scripts/time.js" defer></script>
-    <script src="/scripts/weather.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/spotify.js" defer></script>
+    <script src="scripts/calendar.js" defer></script>    
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/time.js" defer></script>
+    <script src="scripts/weather.js" defer></script>
     <title>My Space</title>
 </head>
 <body>
@@ -38,7 +41,7 @@
         <div class="container">
             <main class="flex">
                 <div class="info">
-                    <h2>Good morning, <br> <span class="accent bold"> User </span></h2>
+                    <h2>Good morning, <br> <span class="accent bold name"> User </span></h2>
                     <!-- <h1>Yay! Almost Done</h1> -->
                     <div class="summary flex">
                         <div class="sum-text">
@@ -51,34 +54,21 @@
                     </div>
 
                     <div class="tasks">
-                        <h3>My Tasks</h3>
-                        <ul>
-                            <li>
-                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
+                        <div class="tasks-head">
+                            <h3>My Tasks</h3>
+                            <a href="#" id="clear">clear</a>
+                            <!-- <p>clear</p> -->
+                        </div>
+                        <ul id="task-ul">
+                            <!-- <li>
                                 <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
                                 <label for="check{{ task.id }}">
                                     <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
                                     <p>description</p>
                                 </label>
-                            </li>
-                            <li>
-                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
-                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
-                                <label for="check{{ task.id }}">
-                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
-                                    <p>Do the laundry</p>
-                                </label>
-                            </li>
-                            <li>
-                                <!-- <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}" checked> -->
-                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
-                                <label for="check{{ task.id }}">
-                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
-                                    <p>Take Job on a walk</p>
-                                </label>
-                            </li>
+                            </li> -->
                             <form class="new-task">
-                                <input type="text" data-id="{{ user.id}}" class="new" name="description" placeholder="Add task" aria-label="new task">
+                                <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
                                 <button class="btn" aria-label="create new task">
                                     <svg width="13" height="13"><path fill="#70292D" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg>
                                 </button>
@@ -86,8 +76,11 @@
                         </ul>                        
                     </div>
                     <div class="music flex">
-                        <div class="flow"><a href=# target="_blank">Get flow</a></div>
-                        <div class="deadline"><a href=# target="_blank">Get deadline</a></div>
+                        <!-- get flow -->
+                        <div class="flow" id="flow"><a href=# >Get flow</a></div>
+
+                        <!-- get deadline -->
+                        <div class="deadline" id="deadline"><a href=# target="_blank">Get deadline</a></div>
                     </div>
                 </div>
 

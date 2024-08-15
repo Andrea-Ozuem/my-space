@@ -106,3 +106,14 @@ class DBStorage:
         Checks if a user exists
         """
         return self.__session.query(cls).filter(cls.email == email).first()
+    
+    def clear_completed(self, cls):
+        """
+        Deletes all completed tasks
+        """
+        tasks = self.__session.query(cls).filter(cls.completed == True).all()
+        count = len(tasks)
+        for task in tasks:
+            self.delete(task)
+        self.save()
+        return count

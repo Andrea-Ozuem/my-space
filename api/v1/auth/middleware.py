@@ -4,6 +4,8 @@ Authentication middleware
 """
 from functools import wraps
 from flask import abort, current_app, request
+import string
+import random
 import jwt
 from os import getenv
 from models.user import User
@@ -23,7 +25,7 @@ def token_required(f):
         secret= getenv('JWT_SECRET')
         algo = getenv('ALGORITHM')
         if not auth_header:
-            print('Error oo')
+            # print('Error oo')
             abort(401)
         token = auth_header.split(" ")[1]
         try:
@@ -43,3 +45,7 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
 
     return wrapper
+
+def generate_random_string(length):
+    letters = string.ascii_letters
+    return ''.join(random.choice(letters) for i in range(length))

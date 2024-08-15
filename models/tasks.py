@@ -11,7 +11,7 @@ class Tasks(BaseModel, Base):
     """Representation of a tasks """
     __tablename__ = 'tasks'
     description = Column(String(248), nullable=False)
-    completed = Column(Boolean(create_constraint=True), nullable=False)
+    completed = Column(Boolean, default=False, nullable=False)
     due_date = Column(DateTime, nullable=True)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
 

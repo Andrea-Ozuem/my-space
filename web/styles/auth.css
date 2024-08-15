@@ -1,0 +1,104 @@
+:root {
+    --ff-base: 16px;
+    --fw-bold: 700;
+    --fw-light: 300;
+    --fw-base:400;
+    --clr-black: #171717;
+    --ff-size: 14px;
+    --clr-accent: #D0BCF0;
+    --ff: 'Nunito', sans-serif;
+    --clr-sec: #70292D;
+    --clr-grey: #313131;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* general styles */
+body {
+    background-color: var(--clr-accent);
+    color: var(--clr-black);
+    font-size: var(--ff-base);
+    font-family: var(--ff);
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 2rem; */
+}
+
+.wrapper {
+    margin-top: 2rem;
+    max-width: 600px;
+    width: 80%;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+form {
+    line-height: 1.5;
+}
+
+fieldset {
+    padding: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid var(--clr-black);
+}
+
+fieldset .input {
+    width: 90%;
+    margin: 1rem auto;
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid var(--clr-grey);
+    border-radius: 5px;
+    outline: none;
+    width: 80%;
+    padding: 0.3rem;
+    margin: 0 auto;
+}
+
+.input input {
+    width: 100%;
+}
+
+.submit {
+    margin: 1.5rem auto;
+    width: 100px;
+    border-radius: 5px;
+    background-color: var(--clr-grey);
+}
+
+.submit input {
+    color: white;
+    border: 0;
+}
+
+.submit:active, .submit:focus{
+    background-color: var(--clr-black);
+}
+
+
+

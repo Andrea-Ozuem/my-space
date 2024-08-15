@@ -10,47 +10,42 @@ from api.v1.views import app_views
 from api.v1.auth.middleware import token_required
 
 
-@app_views.route('/users/<user_id>/tasks', methods=['GET'],
+@app_views.route('/me/tasks', methods=['GET'],
                  strict_slashes=False)
-def get_tasks(current_user: User, user_id):
+@token_required
+def get_tasks(current_user: User):
     """
     Retrieves the list of all tasks objects
     of a specific User, or a specific task
     """
     list_tasks = []
-    user = storage.get(User, user_id)
-    if not user:
+    if not current_user:
         abort(404)
-    for task in user.tasks:
+    for task in current_user.tasks:
         list_tasks.append(task.to_dict())
-
     return jsonify(list_tasks)
 
 
-@app_views.route('/users/<user_id>/tasks', methods=['POST'],
+@app_views.route('/me/tasks', methods=['POST'],
                  strict_slashes=False)
-def post_task(current_user: User, user_id):
+@token_required
+def post_task(current_user: User):
     """
     Creates a Task for a particular User
     """
-    user = storage.get(User, user_id)
-    if not user:
-        abort(404)
     if not request.get_json():
         abort(400, description="Not a JSON")
     if 'description' not in request.get_json():
         abort(400, description="Missing description")
-    if 'completed' not in request.get_json():
-        abort(400, description="Missing completed")
-
     data = request.get_json()
     instance = Tasks(**data)
-    instance.user_id = user.id
+    instance.user_id = current_user.id
     instance.save()
     return make_response(jsonify(instance.to_dict()), 201)
 
 
 @app_views.route('/tasks/<task_id>', methods=['GET'], strict_slashes=False)
+@token_required
 def get_task(current_user: User, task_id):
     """
     Retrieves a specific task based on id
@@ -62,6 +57,7 @@ def get_task(current_user: User, task_id):
 
 
 @app_views.route('/tasks/<task_id>', methods=['PUT'], strict_slashes=False)
+@token_required
 def put_task(current_user: User, task_id):
     """
     Updates a Task
@@ -83,6 +79,7 @@ def put_task(current_user: User, task_id):
 
 
 @app_views.route('/tasks/<task_id>', methods=['DELETE'], strict_slashes=False)
+@token_required
 def delete_task(current_user: User, task_id):
     """
     Deletes a task based on id provided
@@ -94,4 +91,12 @@ def delete_task(current_user: User, task_id):
     storage.delete(task)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return make_response(jsonify({}), 204)
+
+
+@app_views.route('/tasks/clear', methods=['DELETE'], strict_slashes=False)
+@token_required
+def clear_completed(current_user: User):
+    '''Deletes all completed task of a looged in user'''
+    storage.clear_completed(Tasks)
+    return make_response(jsonify({}), 204)
