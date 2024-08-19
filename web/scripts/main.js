@@ -14,12 +14,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set Name
     document.querySelector('.name').textContent = localStorage.getItem('name');
 
-    let total = parseInt(document.querySelector('.total').textContent);
-    if (total == 0) document.querySelector('.percent').textContent = 0;
+    // let total = parseInt(document.querySelector('.total').textContent);
+    // if (total == 0) document.querySelector('.percent').textContent = 0;
 
     // Fetch tasks
     fetch('http://0.0.0.0:5001/api/v1/me/tasks', { headers })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 401) {
+                return response.json().then(err => {
+                    window.location.href = 'login.html';
+                    throw new Error('Unauthorized: ' + err.error);
+                });
+            } else if (!response.ok) {
+                return response.json().then(err => {
+                  throw new Error(err.error);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
             const ul = document.getElementById('task-ul');
             document.querySelector('span.total').textContent = data.length;
@@ -45,12 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 ul.insertBefore(li, ul.firstChild);
             }
             document.querySelector('span.done').textContent = done;
-            let percent = Math.floor(done / data.length * 100);
-            document.querySelector('.percent').textContent = `${percent}%`;
+            updateProgress(done, data.length);
+            // document.querySelector('.percent').textContent = `${percent}`;
         })
         .catch(error => {
-            // console.error("Error retrieving todo:", error);
-            alert(`Error: ${error.message || 'An unexpected error occurred.'}`);
+            console.error('Error:', error.message);
+            document.querySelector('span.total').textContent = 0
+            alert(`${error}`);
         });
 
     // Task completes functionality
@@ -59,26 +72,26 @@ document.addEventListener('DOMContentLoaded', function() {
         // let status = isChecked ? 1 : 0;
         let taskId = event.target.getAttribute('data-id');
 
-        if (isChecked) {
-            fetch(`http://0.0.0.0:5001/api/v1/tasks/${taskId}`, {
-                method: 'PUT',
-                headers: headers,
-                body: JSON.stringify({ completed: isChecked })
-            })
-            .then(response => response.json())
-            .then(json => {
-                // console.log(json)
-                let done = parseInt(document.querySelector('.done').textContent);
-                let total = parseInt(document.querySelector('.total').textContent);
-                done = json.completed ? done + 1 : done - 1;
-                document.querySelector('.done').textContent = done;
-                let percent = Math.floor(done / total * 100);
-                document.querySelector('.percent').textContent = `${percent}%`;
-            })
-            .catch(error => {
-                alert(`Error: ${error.message || 'Error updating task'}`);
-            });
-        }
+        // if (isChecked) {
+        fetch(`http://0.0.0.0:5001/api/v1/tasks/${taskId}`, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify({ completed: isChecked })
+        })
+        .then(response => response.json())
+        .then(json => {
+            // console.log(json)
+            let done = parseInt(document.querySelector('.done').textContent);
+            let total = parseInt(document.querySelector('.total').textContent);
+            done = json.completed ? done + 1 : done - 1;
+            document.querySelector('.done').textContent = done;
+            // document.querySelector('.percent').textContent = `${percent}%`;
+            updateProgress(done, total);
+        })
+        .catch(error => {
+            alert(`Error: ${error.message || 'Error updating task'}`);
+        });
+        // }
     });
 
     // Create new task
@@ -109,7 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </label>`;
             ul.insertBefore(li, ul.firstChild);
             let total = parseInt(document.querySelector('.total').textContent);
-            document.querySelector('.total').textContent = total + 1;
+            let done = parseInt(document.querySelector('.done').textContent);
+            total++;
+            document.querySelector('.total').textContent = total;
+
+            updateProgress(done, total);
         })
         .catch(error => {
             alert(`Error: ${error.message || 'An unexpected error occurred.'}`);
@@ -139,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(() => {
             let count = 0;
             for (let li of ul.children) {
-                console.log(li.children[0]);
                 if (li.children[0].checked) {
                     count++;
                     li.remove();
@@ -147,7 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             document.querySelector('.done').textContent = 0;
             let total = document.querySelector('.total').textContent;
-            document.querySelector('.total').textContent = total - count;
+            total = parseInt(total) - count;
+            document.querySelector('.total').textContent = total;
+            updateProgress(0, total);
         })
         .catch(error => {
             alert(`Error: ${error.message || 'Error clearing completed tasks'}`);
@@ -165,4 +183,12 @@ function deleteTask(taskId) {
     .catch(error => {
         alert(`Error: ${error.message || 'Error clearing completed tasks'}`);
     });
+}
+
+function updateProgress(done, total) {
+    const percent = Math.floor(done / total * 100);
+    // update aria-valuenow attribute
+    const progressbar = document.querySelector(".progress");
+    progressbar.setAttribute("aria-valuenow", percent);
+    progressbar.style.setProperty('--progress', percent + '%');
 }

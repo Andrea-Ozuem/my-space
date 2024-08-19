@@ -76,17 +76,12 @@ def post_user():
     instance.save()
     return make_response(jsonify(instance.to_dict()), 201)
 
-@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/me/update', methods=['PUT'], strict_slashes=False)
 @token_required
-def put_user(current_user: User, user_id: str):
+def put_user(current_user: User):
     """
     Updates a user
     """
-    user = storage.get(User, user_id)
-
-    if not user:
-        abort(404)
-
     if not request.get_json():
         abort(400, description="Not a JSON")
 
@@ -95,6 +90,6 @@ def put_user(current_user: User, user_id: str):
     data = request.get_json()
     for key, value in data.items():
         if key not in ignore:
-            setattr(user, key, value)
+            setattr(current_user, key, value)
     storage.save()
-    return make_response(jsonify(user.to_dict()), 200)
+    return make_response(jsonify(current_user.to_dict()), 200)

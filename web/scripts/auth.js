@@ -34,6 +34,9 @@ function redirectHome(event, url) {
     .then(data => {
         localStorage.setItem('accessToken', data.data.access_token);
         localStorage.setItem('name', data.data.user.first_name);
+        localStorage.setItem('city', data.data.user.city);
+        localStorage.setItem('lastName', data.data.user.last_name);
+        localStorage.setItem('tz', data.data.user.tz1);
         window.location.href = 'index.html';
     })
     .catch(error => {

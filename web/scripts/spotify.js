@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    const clientId = 'ed8ee952e1c747a2a1179f407ceb81d3';
-    const redirectUrl = 'http://localhost:5500/web/';
+    const WEATHER_KEY = CONFIG.WEATHER_KEY;
+    const clientId = CONFIG.CLIENT_ID;
+    const redirectUrl = CONFIG.REDIRECT_URL;
 
     const tokenEndpoint = "https://accounts.spotify.com/api/token";
     const authorizationEndpoint = "https://accounts.spotify.com/authorize";
@@ -136,8 +137,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                 console.error(error);
             }
         }
-
-        console.log(currentToken.access_token);
 
         if (isTokenExpired()) {
             try {

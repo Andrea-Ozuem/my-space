@@ -37,9 +37,9 @@ def token_required(f):
                 print('Error')
                 abort(401)
         except jwt.ExpiredSignatureError:
-            abort(400, 'Expired token')
+            abort(401, 'Expired token')
         except jwt.InvalidTokenError:
-            abort(400, 'Invalid token')
+            abort(401, 'Invalid token')
         except Exception:
             abort(401)
         return f(current_user, *args, **kwargs)

@@ -26,7 +26,7 @@
             <p><a href="/">My Space</a></p>
             <ul class="nav flex">
                 <li>
-                    <a href="/settings"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
+                    <a href="settings.html"><i class="fa-solid fa-gear" style="color: #fff;"></i></a>
                 </li>
                 <!-- <li>
                     <a href="/settings"><i class="fa-regular fa-user" style="color: #fff;"></i></a>
@@ -48,8 +48,7 @@
                             <p class="bold">Daily Tasks</p>
                             <p><span class="done"> 0</span> out of <span class="total"> 0</span> done</p>
                         </div>
-                        <div class="progress">
-                            <span class="percent">0</span>%
+                        <div class="progress" aria-valuenow="0" role="progressbar" aria-live="polite">
                         </div>
                     </div>
 
@@ -57,16 +56,8 @@
                         <div class="tasks-head">
                             <h3>My Tasks</h3>
                             <a href="#" id="clear">clear</a>
-                            <!-- <p>clear</p> -->
                         </div>
                         <ul id="task-ul">
-                            <!-- <li>
-                                <input type="checkbox" id="check{{ task.id }}" data-id="{{ task.id }}">
-                                <label for="check{{ task.id }}">
-                                    <span class="custom-check"><i class="fa-solid fa-lg fa-check"></i></span>
-                                    <p>description</p>
-                                </label>
-                            </li> -->
                             <form class="new-task">
                                 <input type="text" class="new" name="description" placeholder="Add task" aria-label="new task">
                                 <button class="btn" aria-label="create new task">
@@ -75,76 +66,83 @@
                             </form>
                         </ul>                        
                     </div>
-                    <div class="music flex">
+                    <div class="music">
                         <!-- get flow -->
                         <div class="flow" id="flow"><a href=# >Get flow</a></div>
 
                         <!-- get deadline -->
-                        <div class="deadline" id="deadline"><a href=# target="_blank">Get deadline</a></div>
+                        <!-- <div class="deadline" id="deadline"><a href=# target="_blank">Get deadline</a></div> -->
                     </div>
                 </div>
 
-            <!-- <div class="mid"></div> -->
-            <div class="widgets">
-                <div class="widget">
-                    <h3>CALENDAR</h3>
-                    <div class="calendar">
-                        <p class="cal-head"> <span class="month"></span>  <span class="year"></span></p>
-                        <div class="weekdays">
-                            <div>Sun</div>
-                            <div>Mon</div>
-                            <div>Tue</div>
-                            <div>Wed</div>
-                            <div>Thu</div>
-                            <div>Fri</div>
-                            <div>Sat</div>
+            <div class="mid"></div>
+                <div class="widgets">
+                    <div class="widget">
+                        <h3>CALENDAR</h3>
+                        <div class="calendar">
+                            <p class="cal-head"> <span class="month"></span>  <span class="year"></span></p>
+                            <div class="weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="days"></div>
                         </div>
-                        <div class="days"></div>
+                        <!-- Populating the calendar using js -->
                     </div>
-                    <!-- Populating the calendar using js -->
-                </div>
 
-                <div class="widget">
-                    <h3>TIME</h3>
-                    <div class="time flex">
-                        <div class="home">
-                            <p class="bold">HOME</p>
-                            <p id="home-time"></p>
-                        </div>
-                        <!-- Use ptz library -->
-                        <div class="vl"></div>
-                        <div class="away">
-                            <p class="bold">MANILA</p>
-                            <p id="away-time"></p>
+                    <div class="widget">
+                        <h3>TIME</h3>
+                        <div class="time flex">
+                            <div class="home">
+                                <p class="bold">Home</p>
+                                <p id="home-time"></p>
+                            </div>
+                            <!-- Use ptz library -->
+                            <div class="vl"></div>
+                            <div class="away">
+                                <p class="bold" id="away"></p>
+                                <p id="away-time"></p>
+                            </div>
                         </div>
                     </div>
+                    <div class="widget">
+                        <h3>WEATHER</h3>
+                        <div class="weather-sum">
+                            <p class="bold city">Lagos</p>
+                            <p class="summ">Summary</p>
+                        </div>
+                        <div class="weather" id="weather">
+                            <div class="stat flex">
+                                <p>Feels Like</p>
+                                <p class="temp">20 &deg C</p>
+                            </div>
+                            <div class="stat flex">
+                                <p>Wind Speed</p>
+                                <p class="speed">3.33 m/s</p>
+                            </div>
+                            <div class="stat flex">
+                                <p>Humidity</p>
+                                <p class="humid">50 %</p>
+                            </div>
+                            <div class="stat flex">
+                                <p>Pressure</p>
+                                <p class="pressure">1013.25 hPa</p>
+                            </div>
+                        </div>
+                        <div id="frost" class="frost">
+                            <div class="getWeather">
+                                <button >Get Weather Info</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
                 </div>
-                <div class="widget">
-                    <h3>WEATHER</h3>
-                    <div class="weather-sum">
-                        <p class="bold city">Lagos</p>
-                        <p class="summ">Summary</p>
-                    </div>
-                    <div class="weather">
-                        <div class="stat flex">
-                            <p>Feels Like</p>
-                            <p class="temp">20 &deg C</p>
-                        </div>
-                        <div class="stat flex">
-                            <p>Wind Speed</p>
-                            <p class="speed">3.33 m/s</p>
-                        </div>
-                        <div class="stat flex">
-                            <p>Humidity</p>
-                            <p class="humid">50 %</p>
-                        </div>
-                        <div class="stat flex">
-                            <p>Pressure</p>
-                            <p class="pressure">1013.25 hPa</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             </main>
         </div>
     </body>

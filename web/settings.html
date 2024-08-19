@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://kit.fontawesome.com/94fe2c2c98.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-    <!-- <script src="../static/scripts/calendar.js" defer></script>     -->
-    <!-- <script src="../static/scripts/main.js" defer></script> -->
+    <script src="scripts/settings.js" defer></script>
     <title>My Space</title>
 </head>
 <body>
@@ -40,15 +38,15 @@
                     <legend>User Info</legend>
                     <div class="name">
                         <label for="fname">First Name</label>
-                        <div><input id="fname" name="first_name" type="text" value="{{ user.first_name }}"></div>
+                        <div><input id="fname" name="first_name" type="text"></div>
                     </div>
                     <div class="name">
                         <label for="lname">Last Name</label>
-                        <div><input id="lname" name="last_name" type="text" value="{{ user.last_name }}"></div>
+                        <div><input id="lname" name="last_name" type="text"></div>
                     </div>
                     <div class="city">
                         <label for="city">City</label>
-                        <div><input type="text" name="city" id="city" value="{{ user.city }}"></div>
+                        <div><input type="text" name="city" id="city"></div>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -57,30 +55,11 @@
                         <label for="tz1">Home</label>
                         <select name="tz1" id="tz1">
                             <!-- gotten from backend -->
-                            {% for tz in all %}
-                            {% if tz == user.tz1 %}
-                                <option value="{{ tz }}" selected>{{ tz }} </option>
-                            {% else %}
-                                <option value="{{ tz }}">{{ tz }} </option>
-                            {% endif %}
-                            {% endfor %}
+                                <!-- <option value="{{ tz }}" selected>{{ tz }} </option> -->
                         </select>
-                    </div>
-                    <div class="tz2">
-                        <label for="tz2">Away</label>
-                        <select name="tz2" id="tz2">
-                            <!-- gotten from backend -->
-                            {% for tz in all %}
-                            {% if tz == user.tz2 %}
-                                <option value="{{ tz }}" selected>{{ tz }} </option>
-                            {% else %}
-                                <option value="{{ tz }}">{{ tz }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
+                    </div> 
                 </fieldset>
-                <input type="submit" value="Update">
+                <input id="submit" type="submit" value="Update">
             </form>  
         </main>
     </body>
